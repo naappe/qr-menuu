@@ -1,1 +1,655 @@
+Here is an HTML document that organizes your menu with dropdown category menus for a cleaner, more compact browsing experience.
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Cafe White Saffron · Dropdown Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: #ffffff;
+      color: #000000;
+      padding-bottom: 96px;
+    }
+
+    /* header - clean black */
+    .header {
+      background: #000000;
+      color: #ffffff;
+      padding: 1.8rem 1rem 1.3rem;
+      text-align: center;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    .header h1 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      margin-bottom: 0.4rem;
+    }
+
+    .header .tagline {
+      font-size: 0.85rem;
+      opacity: 0.75;
+      margin-top: 0.3rem;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 0.9rem;
+    }
+
+    .contact-row a, .contact-row span {
+      color: #dddddd;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 450;
+      background: #1a1a1a;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+    }
+
+    .contact-row a:hover {
+      background: #333333;
+      color: white;
+    }
+
+    /* search bar */
+    .controls {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 20;
+      padding: 1rem 1rem 0.8rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid #cccccc;
+      border-radius: 40px;
+      background: #ffffff;
+      color: #000000;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: #000000;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+    }
+
+    /* dropdown category selector */
+    .category-dropdown-area {
+      padding: 0.8rem 1rem 0.2rem;
+      background: #ffffff;
+    }
+
+    .dropdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+      color: #5a5a5a;
+      margin-bottom: 0.4rem;
+    }
+
+    .category-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid #cccccc;
+      border-radius: 40px;
+      background: #ffffff;
+      color: #000000;
+      cursor: pointer;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+    }
+
+    .category-select:focus {
+      border-color: #000000;
+      outline: none;
+    }
+
+    /* menu container */
+    .menu-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.2rem 1rem;
+    }
+
+    /* category header inside results */
+    .category-header {
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-left: 4px solid #000000;
+      padding-left: 0.8rem;
+      margin: 0 0 1rem 0;
+      color: #000000;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    /* card */
+    .menu-card {
+      background: #ffffff;
+      border: 1px solid #eaeaea;
+      border-radius: 1rem;
+      padding: 0.85rem 1rem;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .menu-card:hover {
+      border-color: #9e9e9e;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .item-info {
+      flex: 2;
+    }
+
+    .item-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+      color: #000000;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .item-price {
+      font-weight: 600;
+      color: #2c2c2c;
+      background: #f2f2f2;
+      display: inline-block;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .item-desc {
+      font-size: 0.7rem;
+      color: #5a5a5a;
+      margin-top: 0.2rem;
+    }
+
+    /* quantity + add */
+    .order-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #fafafa;
+      padding: 0.2rem 0.5rem;
+      border-radius: 48px;
+      border: 1px solid #e2e2e2;
+    }
+
+    .qty-btn {
+      background: #ffffff;
+      border: 1px solid #d4d4d4;
+      width: 30px;
+      height: 30px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: #000000;
+    }
+
+    .qty-btn:active {
+      background: #e6e6e6;
+      transform: scale(0.96);
+    }
+
+    .item-qty {
+      font-weight: 600;
+      min-width: 28px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #000000;
+    }
+
+    .add-btn {
+      background: #000000;
+      border: none;
+      color: white;
+      font-weight: 500;
+      padding: 0.35rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+
+    .add-btn:active {
+      background: #2c2c2c;
+      transform: scale(0.96);
+    }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000000;
+      color: #ffffff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      font-size: 0.8rem;
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    /* cart panel */
+    .cart-panel {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 2px solid #000000;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.05);
+      padding: 0.8rem 1rem 1.2rem;
+      z-index: 15;
+    }
+
+    .cart-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .cart-total {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #000000;
+    }
+
+    .cart-total span {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #3b3b3b;
+    }
+
+    .cart-buttons {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .view-order-btn, .whatsapp-btn {
+      border: 1px solid #cdcdcd;
+      background: #fcfcfc;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: #000000;
+    }
+
+    .whatsapp-btn {
+      background: #000000;
+      color: white;
+      border: none;
+    }
+
+    .whatsapp-btn:hover {
+      background: #2c2c2c;
+    }
+
+    /* modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      width: 90%;
+      max-width: 480px;
+      max-height: 80vh;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      overflow-y: auto;
+    }
+
+    .order-items-list {
+      margin: 1rem 0;
+      max-height: 55vh;
+      overflow-y: auto;
+    }
+
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #ececec;
+    }
+
+    .close-modal {
+      background: #000000;
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 40px;
+      margin-top: 1rem;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    @media (max-width: 550px) {
+      .items-grid {
+        grid-template-columns: 1fr;
+      }
+      .cart-summary {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .cart-buttons {
+        justify-content: space-between;
+      }
+      .toast {
+        white-space: nowrap;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Cafe White Saffron</h1>
+  <div class="tagline">Authentic Maldivian Flavors • Fresh • Delicious</div>
+  <div class="contact-row">
+    <span>Maldives</span>
+    <a href="tel:7667734">Call 7667734</a>
+  </div>
+</div>
+
+<div class="controls">
+  <input type="text" id="searchInput" class="search-box" placeholder="Search menu ...  (biryani, juice, pizza)">
+</div>
+
+<div class="category-dropdown-area">
+  <div class="dropdown-label">BROWSE BY CATEGORY</div>
+  <select id="categorySelect" class="category-select">
+    <option value="All">All categories</option>
+  </select>
+</div>
+
+<div class="menu-container" id="menuContainer"></div>
+
+<div class="cart-panel">
+  <div class="cart-summary">
+    <div class="cart-total">Total: <span id="cartTotal">MVR 0.00</span></div>
+    <div class="cart-buttons">
+      <button class="view-order-btn" id="viewOrderBtn">View order</button>
+      <button class="whatsapp-btn" id="whatsappOrderBtn">Send to WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastMsg" class="toast">Added to order</div>
+
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <h3>Your order</h3>
+    <div id="modalOrderList" class="order-items-list"></div>
+    <div style="font-weight:600; margin-top: 8px;" id="modalTotal"></div>
+    <button class="close-modal" id="closeModalBtn">Close</button>
+  </div>
+</div>
+
+<script>
+  // --------------------------------------------------------------
+  // COMPLETE MENU DATA (based on original)
+  // --------------------------------------------------------------
+  const menuData = [
+    { name: "Blue Bull Bull Mojito", price: 80, category: "Beverages" }, { name: "Blue Lagoon Mojito", price: 85, category: "Beverages" }, { name: "Coca Cola", price: 25, category: "Beverages" }, { name: "Coca Cola Big", price: 42, category: "Beverages" }, { name: "Coke (diet)", price: 20, category: "Beverages" }, { name: "Coke Float", price: 50, category: "Beverages" }, { name: "Fanta Orange", price: 25, category: "Beverages" }, { name: "Fanta Orange (Big)", price: 42, category: "Beverages" }, { name: "Fanta Strawberry", price: 25, category: "Beverages" }, { name: "Granini drinks", price: 35, category: "Beverages" }, { name: "Ice milk", price: 25, category: "Beverages" }, { name: "Iced Coffee", price: 45, category: "Beverages" }, { name: "Iced Lemon Tea", price: 40, category: "Beverages" }, { name: "Iced Milo (Small)", price: 20, category: "Beverages" }, { name: "Iced milo", price: 40, category: "Beverages" }, { name: "Kulfi", price: 10, category: "Beverages" }, { name: "Passion Fruit Mojto", price: 65, category: "Beverages" }, { name: "Peach Iced Lemon Tea", price: 45, category: "Beverages" }, { name: "Redbul", price: 55, category: "Beverages" }, { name: "Rose Syrup (Big)", price: 30, category: "Beverages" }, { name: "Rose syrup", price: 15, category: "Beverages" }, { name: "Sagiko", price: 20, category: "Beverages" }, { name: "Sprite", price: 25, category: "Beverages" }, { name: "Water BIG", price: 10, category: "Beverages" }, { name: "water Small", price: 5, category: "Beverages" }, { name: "XL (Mojito)", price: 55, category: "Beverages" }, { name: "XL (Big)", price: 40, category: "Beverages" }, { name: "XL (Small)", price: 30, category: "Beverages" },
+    { name: "Chicken Biryani", price: 70, category: "Biryani" },
+    { name: "Baippen", price: 10, category: "Curry & Others" }, { name: "Baippen Takeway", price: 12, category: "Curry & Others" }, { name: "Bandu Riha", price: 25, category: "Curry & Others" }, { name: "Beef Curry", price: 35, category: "Curry & Others" }, { name: "Bisriha", price: 22, category: "Curry & Others" }, { name: "Butter Chicken Masala", price: 65, category: "Curry & Others" }, { name: "Butter Chicken Masala (Half)", price: 40, category: "Curry & Others" }, { name: "Chicken curry", price: 35, category: "Curry & Others" }, { name: "Farumas Riha", price: 35, category: "Curry & Others" }, { name: "Fish Curry", price: 35, category: "Curry & Others" }, { name: "Garudhiya", price: 13, category: "Curry & Others" }, { name: "Kukulhu Kurandi", price: 27, category: "Curry & Others" }, { name: "Kulhi Riha", price: 30, category: "Curry & Others" }, { name: "Masburi Riha", price: 22, category: "Curry & Others" }, { name: "Mugu Riha", price: 22, category: "Curry & Others" }, { name: "Roshi", price: 3, category: "Curry & Others" }, { name: "Vegetable Curry", price: 18, category: "Curry & Others" },
+    { name: "Brownie", price: 45, category: "Dessert" }, { name: "Chocolate Cake", price: 5, category: "Dessert" }, { name: "Vanila Ice-Cream", price: 15, category: "Dessert" }, { name: "WAFFLE", price: 15, category: "Dessert" }, { name: "Whole Pudding", price: 120, category: "Dessert" }, { name: "Banana Bread", price: 10, category: "Dessert" }, { name: "Pudding", price: 20, category: "Dessert" },
+    { name: "Mango Juice", price: 55, category: "Fresh Juice" }, { name: "Mix Fresh Juice", price: 50, category: "Fresh Juice" }, { name: "Passion Fruit Juice", price: 50, category: "Fresh Juice" }, { name: "Watermelon juice", price: 50, category: "Fresh Juice" }, { name: "Orange Juice", price: 45, category: "Fresh Juice" }, { name: "Lemon juice", price: 35, category: "Fresh Juice" },
+    { name: "Chicken Fried Rice", price: 55, category: "Fried Rice" }, { name: "Beef Fried Rice", price: 60, category: "Fried Rice" }, { name: "Mix Fried Rice", price: 70, category: "Fried Rice" }, { name: "Veg Fried Rice", price: 40, category: "Fried Rice" }, { name: "mongolian rice", price: 60, category: "Fried Rice" }, { name: "Egg fried rice", price: 45, category: "Fried Rice" },
+    { name: "Milk Tea", price: 17, category: "Hot Drinks" }, { name: "Masala Tea", price: 10, category: "Hot Drinks" }, { name: "Hot Chocolate", price: 35, category: "Hot Drinks" }, { name: "Original Coffee", price: 10, category: "Hot Drinks" }, { name: "Black Tea", price: 3, category: "Hot Drinks" }, { name: "Ginger Tea", price: 5, category: "Hot Drinks" },
+    { name: "Coconut water", price: 55, category: "Juice (Packaged)" }, { name: "Mixed Fruit Juice Pkt", price: 35, category: "Juice (Packaged)" },
+    { name: "Chicken Kohtthu Roshi", price: 55, category: "Kotthu Roshi" }, { name: "Tuna Kohtthu Roshi", price: 45, category: "Kotthu Roshi" }, { name: "Veg Kohtthu Roshi", price: 40, category: "Kotthu Roshi" }, { name: "Beef Kohtthu Roshi", price: 60, category: "Kotthu Roshi" }, { name: "Mix kohtthu Roshi", price: 70, category: "Kotthu Roshi" },
+    { name: "Oreo Milkshake", price: 60, category: "Milkshake" }, { name: "Mango milkshake", price: 55, category: "Milkshake" }, { name: "Chocolate Milkshake", price: 55, category: "Milkshake" }, { name: "Vanila Milkshake", price: 55, category: "Milkshake" },
+    { name: "Chicken Noodles", price: 55, category: "Noodles" }, { name: "Tuna Noodles", price: 45, category: "Noodles" }, { name: "Beef noodles", price: 60, category: "Noodles" }, { name: "Mix Noodles", price: 60, category: "Noodles" }, { name: "Vegtable Noodles", price: 40, category: "Noodles" },
+    { name: "Chicken Pizza", price: 115, category: "Pizza" }, { name: "Tuna Pizza", price: 105, category: "Pizza" }, { name: "Vegetable Pizza", price: 106, category: "Pizza" }, { name: "BEEF PIZZA", price: 133, category: "Pizza" }, { name: "Mix Pizza", price: 130, category: "Pizza" },
+    { name: "Beef Club Sandwich", price: 70, category: "Sandwiches & Burgers" }, { name: "Crispy Chicken Burger", price: 60, category: "Sandwiches & Burgers" }, { name: "Tuna Sandwich", price: 35, category: "Sandwiches & Burgers" }, { name: "Chicken Sandwich", price: 40, category: "Sandwiches & Burgers" }, { name: "Veg Club sandwich", price: 50, category: "Sandwiches & Burgers" },
+    { name: "Bajiya", price: 4, category: "Short Eats" }, { name: "Gulha", price: 4, category: "Short Eats" }, { name: "Sawarma", price: 20, category: "Short Eats" }, { name: "Cutlets", price: 4, category: "Short Eats" }, { name: "Masroshi", price: 5, category: "Short Eats" }, { name: "Kavaab", price: 4, category: "Short Eats" },
+    { name: "Chicken Soup", price: 50, category: "Soup" },
+    { name: "Chicken Spaghetti", price: 65, category: "Spaghetti & Pasta" }, { name: "Carbonara Pasta", price: 80, category: "Spaghetti & Pasta" }, { name: "Tuna Pasta", price: 50, category: "Spaghetti & Pasta" }, { name: "Spaghetti bolognese", price: 77, category: "Spaghetti & Pasta" },
+    { name: "Mashuni Normal", price: 20, category: "Breakfast" }, { name: "Continental breakfast", price: 45, category: "Breakfast" }, { name: "Boiled Egg", price: 6, category: "Breakfast" }, { name: "Hikimas Mashuni", price: 25, category: "Breakfast" },
+    { name: "Green Salad", price: 45, category: "Salads" }, { name: "Chicken Salad", price: 60, category: "Salads" }, { name: "Mix Salad", price: 70, category: "Salads" },
+    { name: "Chilli Chicken", price: 40, category: "Side Dishes" }, { name: "FRENCH FRIES", price: 45, category: "Side Dishes" }, { name: "Grill chicken (single)", price: 45, category: "Side Dishes" }, { name: "fried egg", price: 10, category: "Side Dishes" }, { name: "Devilled Fish", price: 35, category: "Side Dishes" }, { name: "Chicken Wings", price: 30, category: "Side Dishes" }
+  ];
+
+  let cart = [];
+  let currentCategory = "All";
+  let currentSearch = "";
+
+  // Helper: get sorted unique categories
+  function getUniqueCategories() {
+    const cats = menuData.map(i => i.category);
+    return ['All', ...new Set(cats)].sort((a,b) => {
+      if (a === 'All') return -1;
+      if (b === 'All') return 1;
+      return a.localeCompare(b);
+    });
+  }
+
+  function populateDropdown() {
+    const select = document.getElementById('categorySelect');
+    const categories = getUniqueCategories();
+    select.innerHTML = categories.map(cat => `<option value="${cat}" ${currentCategory === cat ? 'selected' : ''}>${cat}</option>`).join('');
+  }
+
+  function updateCartUI() {
+    const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    document.getElementById('cartTotal').innerText = `MVR ${total.toFixed(2)}`;
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toastMsg');
+    toast.innerText = msg || 'Added to order';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  }
+
+  function addToCart(itemName, price, quantity) {
+    const existing = cart.find(i => i.name === itemName);
+    if (existing) existing.quantity += quantity;
+    else cart.push({ name: itemName, price: price, quantity: quantity });
+    updateCartUI();
+    showToast(`+${quantity} ${itemName.substring(0, 25)}`);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  function renderMenu() {
+    const container = document.getElementById('menuContainer');
+    let filtered = menuData.filter(item => {
+      const matchCat = currentCategory === 'All' || item.category === currentCategory;
+      const matchSearch = currentSearch === '' || item.name.toLowerCase().includes(currentSearch.toLowerCase());
+      return matchCat && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:2.5rem; color:#5a5a5a;">No items found. Try different search or category.</div>';
+      return;
+    }
+
+    // Group by category (useful when "All" selected, else only one group)
+    const grouped = new Map();
+    filtered.forEach(item => {
+      if (!grouped.has(item.category)) grouped.set(item.category, []);
+      grouped.get(item.category).push(item);
+    });
+
+    let html = '';
+    for (let [cat, items] of grouped.entries()) {
+      html += `<div class="category-block"><div class="category-header">${cat}</div><div class="items-grid">`;
+      items.forEach(item => {
+        html += `
+          <div class="menu-card">
+            <div class="item-info">
+              <div class="item-name">${escapeHtml(item.name)} <span class="item-price">MVR ${item.price.toFixed(2)}</span></div>
+              <div class="item-desc">Maldivian specialty</div>
+            </div>
+            <div class="order-controls" data-name="${escapeHtml(item.name)}" data-price="${item.price}">
+              <button class="qty-btn dec">-</button>
+              <span class="item-qty">1</span>
+              <button class="qty-btn inc">+</button>
+              <button class="add-btn">Add</button>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+    }
+    container.innerHTML = html;
+
+    // attach dynamic controls
+    document.querySelectorAll('.menu-card .order-controls').forEach(ctrl => {
+      const name = ctrl.getAttribute('data-name');
+      const price = parseFloat(ctrl.getAttribute('data-price'));
+      let qtySpan = ctrl.querySelector('.item-qty');
+      let qty = 1;
+      const dec = ctrl.querySelector('.dec');
+      const inc = ctrl.querySelector('.inc');
+      const add = ctrl.querySelector('.add-btn');
+      const update = () => { qtySpan.innerText = qty; };
+      dec.addEventListener('click', (e) => {
+        e.stopPropagation();
+        qty = Math.max(1, qty - 1);
+        update();
+      });
+      inc.addEventListener('click', (e) => {
+        e.stopPropagation();
+        qty = qty + 1;
+        update();
+      });
+      add.addEventListener('click', (e) => {
+        e.stopPropagation();
+        addToCart(name, price, qty);
+        qty = 1;
+        update();
+      });
+    });
+  }
+
+  function showOrderModal() {
+    const modal = document.getElementById('orderModal');
+    const listDiv = document.getElementById('modalOrderList');
+    const totalSpan = document.getElementById('modalTotal');
+    if (cart.length === 0) {
+      listDiv.innerHTML = '<div style="padding:1rem; text-align:center; color:#5a5a5a;">Your order is empty</div>';
+      totalSpan.innerText = 'Total: MVR 0.00';
+    } else {
+      let rows = '';
+      let total = 0;
+      cart.forEach(item => {
+        const lineTotal = item.price * item.quantity;
+        total += lineTotal;
+        rows += `<div class="order-row"><span><strong>${escapeHtml(item.name)}</strong>  x${item.quantity}</span><span>MVR ${lineTotal.toFixed(2)}</span></div>`;
+      });
+      listDiv.innerHTML = rows;
+      totalSpan.innerText = `Total: MVR ${total.toFixed(2)}`;
+    }
+    modal.style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('orderModal').style.display = 'none';
+  }
+
+  function sendWhatsAppOrder() {
+    if (cart.length === 0) {
+      showToast("Cart is empty. Add items first.");
+      return;
+    }
+    let message = "Cafe White Saffron Order%0A";
+    let total = 0;
+    cart.forEach(item => {
+      const lineTotal = item.price * item.quantity;
+      total += lineTotal;
+      message += `- ${item.name} x${item.quantity} = MVR ${lineTotal.toFixed(2)}%0A`;
+    });
+    message += `%0ATOTAL: MVR ${total.toFixed(2)}%0APickup / Call 7667734`;
+    window.open(`https://wa.me/9607667734?text=${message}`, '_blank');
+  }
+
+  // Event listeners
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    currentSearch = e.target.value;
+    renderMenu();
+  });
+  document.getElementById('categorySelect').addEventListener('change', (e) => {
+    currentCategory = e.target.value;
+    renderMenu();
+  });
+  document.getElementById('viewOrderBtn').addEventListener('click', showOrderModal);
+  document.getElementById('whatsappOrderBtn').addEventListener('click', sendWhatsAppOrder);
+  document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+  window.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('orderModal')) closeModal();
+  });
+
+  populateDropdown();
+  renderMenu();
+  updateCartUI();
+</script>
+</body>
+</html>
+```
