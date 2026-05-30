@@ -1,9 +1,12 @@
+Here is an HTML document that creates an online ordering system for Cafe White Saffron, allowing customers to browse a menu, build an order, and submit it via WhatsApp.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Cafe White Saffron | Authentic Maldivian Flavors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Cafe White Saffron | Online Order & Reservation</title>
     <style>
         * {
             margin: 0;
@@ -12,713 +15,829 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: #fef8f0;
-            color: #2c1810;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
             line-height: 1.5;
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
-            color: #fef8f0;
-            padding: 60px 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="white" d="M20,20 L30,20 L25,30 Z M70,70 L80,70 L75,80 Z M50,10 L55,20 L45,20 Z"/></svg>');
-            background-repeat: repeat;
-            pointer-events: none;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            position: relative;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 5px;
-            position: relative;
-        }
-
-        .hero-phone {
-            display: inline-block;
-            background: #e67e22;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 20px;
-            font-weight: 600;
-            transition: background 0.3s;
-            position: relative;
-        }
-
-        .hero-phone:hover {
-            background: #d35400;
-        }
-
-        /* Container */
         .container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 24px;
         }
 
-        /* Category Navigation */
-        .category-nav {
-            background: white;
-            border-radius: 60px;
-            padding: 8px 12px;
-            margin: -30px auto 30px auto;
-            max-width: 90%;
+        /* header styling */
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 28px 24px;
+            border-radius: 28px;
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: thin;
-            position: relative;
-            z-index: 10;
+            text-align: center;
+            margin-bottom: 28px;
         }
 
-        .category-nav::-webkit-scrollbar {
-            height: 4px;
+        .header h1 {
+            font-size: 2rem;
+            letter-spacing: -0.3px;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
-        .category-nav a {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0 3px;
-            color: #4a2c1a;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            border-radius: 40px;
-            transition: all 0.2s;
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .category-nav a:hover {
-            background: #fef0e0;
-        }
-
-        /* Two Column Layout */
-        .main-grid {
+        /* layout */
+        .main-content {
             display: flex;
-            gap: 30px;
+            gap: 28px;
             flex-wrap: wrap;
         }
 
         .menu-section {
-            flex: 2;
+            flex: 2.2;
             min-width: 280px;
         }
 
-        .cart-section {
-            flex: 1;
-            min-width: 280px;
-            position: sticky;
-            top: 20px;
-            align-self: flex-start;
+        .order-section {
+            flex: 1.3;
+            min-width: 300px;
         }
 
-        /* Category Cards */
-        .category-card {
+        /* cards */
+        .card {
             background: white;
-            border-radius: 20px;
-            margin-bottom: 25px;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+            margin-bottom: 24px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: box-shadow 0.2s ease;
+            border: 1px solid #eef2f6;
         }
 
-        .category-card:hover {
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .category-header {
-            background: linear-gradient(135deg, #f5e6d3 0%, #fef0e0 100%);
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #e67e22;
-        }
-
-        .category-header h2 {
-            font-size: 1.3rem;
-            color: #2c1810;
-            font-weight: 600;
-        }
-
-        .category-badge {
-            background: #e67e22;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .items-container {
-            display: none;
-            padding: 10px 0;
-        }
-
-        .items-container.open {
-            display: block;
-        }
-
-        /* Menu Item */
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
-            border-bottom: 1px solid #f0e0d0;
-            transition: background 0.2s;
-            cursor: pointer;
-        }
-
-        .menu-item:hover {
-            background: #fef8f0;
-        }
-
-        .item-info {
-            flex: 1;
-        }
-
-        .item-name {
-            font-weight: 500;
-            color: #2c1810;
-            font-size: 0.95rem;
-        }
-
-        .item-price {
-            color: #e67e22;
+        .card-header {
+            background: #ffffff;
+            padding: 18px 20px;
+            border-bottom: 2px solid #f1f5f9;
             font-weight: 700;
-            font-size: 1rem;
-            margin-left: 15px;
-            white-space: nowrap;
-        }
-
-        /* Cart Styles */
-        .cart-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
-
-        .cart-header {
-            background: #2c1810;
-            color: white;
-            padding: 15px 20px;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .cart-items {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 15px;
-        }
-
-        .cart-empty {
-            text-align: center;
-            color: #aaa;
-            padding: 30px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item-info {
-            flex: 2;
-        }
-
-        .cart-item-name {
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .cart-item-controls {
+            font-size: 1.2rem;
+            color: #1e293b;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .qty-btn {
-            background: #f0e0d0;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background 0.2s;
+        .card-header i {
+            font-size: 1.3rem;
         }
 
-        .qty-btn:hover {
-            background: #e0c8b0;
-        }
-
-        .cart-item-price {
-            min-width: 65px;
-            text-align: right;
-            font-weight: 600;
-            color: #e67e22;
-            font-size: 0.85rem;
-        }
-
-        .cart-total {
-            background: #fef8f0;
-            padding: 15px;
-            border-top: 2px solid #e67e22;
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        /* Form Styles */
-        .form-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-        .form-header {
-            background: #e67e22;
-            color: white;
-            padding: 15px 20px;
-            font-weight: 600;
-        }
-
-        .form-body {
+        .card-body {
             padding: 20px;
         }
 
+        /* search */
+        .search-box {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            background: #fff;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #c084fc;
+            box-shadow: 0 0 0 3px rgba(192,132,252,0.2);
+        }
+
+        /* category */
+        .category {
+            background: #ffffff;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #f0f2f5;
+            transition: all 0.1s;
+        }
+
+        .category-title {
+            background: #f9fafb;
+            padding: 14px 18px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 20px;
+            color: #0f172a;
+            transition: background 0.2s;
+        }
+
+        .category-title:hover {
+            background: #f1f5f9;
+        }
+
+        .category-count {
+            background: #e2e8f0;
+            color: #1e293b;
+            padding: 3px 10px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .items-list {
+            display: none;
+            padding: 8px 0 12px 0;
+            background: white;
+            border-top: 1px solid #f0f2f5;
+        }
+
+        .items-list.open {
+            display: block;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            margin: 0 6px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border-bottom: 1px solid #f8fafc;
+        }
+
+        .menu-item:hover {
+            background: #fefce8;
+            transform: scale(0.98);
+        }
+
+        .item-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: #2c6e49;
+            background: #e9f5ef;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+
+        /* order summary */
+        .order-items {
+            max-height: 360px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+            padding-right: 4px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf2f7;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .order-item-info {
+            flex: 2;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .order-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 4px 12px;
+            border-radius: 40px;
+        }
+
+        .qty-btn {
+            background: white;
+            border: 1px solid #cbd5e1;
+            width: 28px;
+            height: 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.1s;
+        }
+
+        .qty-btn:hover {
+            background: #e9ecef;
+            border-color: #94a3b8;
+        }
+
+        .order-item-price {
+            min-width: 75px;
+            text-align: right;
+            font-weight: 700;
+            color: #2d6a4f;
+        }
+
+        .remove-item {
+            color: #e63946;
+            font-weight: 800;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 28px;
+            text-align: center;
+            border-radius: 30px;
+            transition: 0.1s;
+        }
+
+        .remove-item:hover {
+            background: #ffe4e4;
+        }
+
+        .order-total {
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 16px;
+            margin-top: 8px;
+            text-align: right;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        /* form */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #4a2c1a;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            color: #475569;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
             font-size: 0.9rem;
-            font-family: inherit;
+            transition: 0.2s;
+            background: #fff;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #e67e22;
+            border-color: #a855f7;
+            box-shadow: 0 0 0 2px rgba(168,85,247,0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
         .btn-primary {
-            width: 100%;
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
+            background: #25D366;
+            color: #075e54;
+            box-shadow: 0 2px 8px rgba(37,211,102,0.3);
         }
 
         .btn-primary:hover {
-            background: #219a52;
+            background: #20b859;
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
-            width: 100%;
-            background: #95a5a6;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            margin-top: 10px;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e6edf5;
         }
 
         .hidden {
             display: none;
         }
 
-        .search-input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+        .badge-icon {
+            background: #f97316;
+            color: white;
+            border-radius: 100px;
+            padding: 2px 8px;
+            font-size: 11px;
+            margin-left: 8px;
         }
 
-        footer {
+        .empty-message {
             text-align: center;
-            padding: 30px;
-            color: #aaa;
-            font-size: 0.8rem;
+            color: #94a3b8;
+            padding: 32px 16px;
+            font-size: 0.85rem;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 1.8rem; }
-            .category-nav a { padding: 8px 12px; font-size: 0.75rem; }
-            .category-header h2 { font-size: 1.1rem; }
-            .item-name { font-size: 0.85rem; }
+        hr {
+            margin: 12px 0;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 16px;
+            }
+            .card-body {
+                padding: 16px;
+            }
+        }
+
+        .reservation-note {
+            font-size: 0.7rem;
+            background: #fef9e3;
+            padding: 8px 12px;
+            border-radius: 20px;
+            margin-top: 8px;
+            color: #b45309;
+        }
+
+        /* inline icon */
+        .emoji-icon {
+            font-size: 1.15rem;
         }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <h1>Cafe White Saffron</h1>
-    <p>Authentic Maldivian Flavors • Fresh • Delicious</p>
-    <p>Maldives</p>
-    <a href="tel:7667734" class="hero-phone">📞 Call 7667734</a>
-</div>
-
 <div class="container">
-    <div class="category-nav" id="categoryNav"></div>
+    <div class="header">
+        <h1>🤍 Cafe White Saffron</h1>
+        <p>📍 Maldives | 📞 +960 766-7734 | ✨ Fresh flavors, island vibes</p>
+    </div>
 
-    <div class="main-grid">
+    <div class="main-content">
+        <!-- Menu Panel -->
         <div class="menu-section">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search menu...">
-            <div id="menuContainer">Loading menu...</div>
+            <div class="card">
+                <div class="card-header">
+                    🧾 Gourmet Menu
+                </div>
+                <div class="card-body">
+                    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search for coffee, pasta, dessert...">
+                    <div id="menuContainer"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="cart-section">
-            <div class="cart-card">
-                <div class="cart-header">Your Order</div>
-                <div id="cartItems" class="cart-items">
-                    <div class="cart-empty">No items selected</div>
+        <!-- Order & Details Panel -->
+        <div class="order-section">
+            <div class="card">
+                <div class="card-header">
+                    🛒 Your Basket
                 </div>
-                <div id="cartTotal" class="cart-total">Total: MVR 0.00</div>
-                <div style="padding: 0 15px 15px 15px;">
-                    <button id="clearCartBtn" class="btn-secondary">Clear Order</button>
+                <div class="card-body">
+                    <div id="orderItems" class="order-items">
+                        <div class="empty-message">✨ Your cart is empty. Tap any menu item ✨</div>
+                    </div>
+                    <div id="orderTotal" class="order-total">Total: MVR 0.00</div>
+                    <button id="clearOrderBtn" class="btn btn-secondary">🗑️ Clear Order</button>
                 </div>
             </div>
 
-            <div class="form-card">
-                <div class="form-header">Customer Details</div>
-                <div class="form-body">
+            <div class="card">
+                <div class="card-header">
+                    📋 Reservation & Delivery
+                </div>
+                <div class="card-body">
                     <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="customerName" placeholder="Enter your name">
+                        <label>👤 Full Name *</label>
+                        <input type="text" id="customerName" placeholder="e.g., Aisha Mohamed">
                     </div>
                     <div class="form-group">
-                        <label>Mobile Number *</label>
-                        <input type="tel" id="customerMobile" placeholder="Enter mobile number">
+                        <label>📱 Mobile Number *</label>
+                        <input type="tel" id="customerMobile" placeholder="e.g., 7XXXXXXX">
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" id="customerAddress" placeholder="Delivery address">
+                        <label>🏠 Address (for delivery)</label>
+                        <input type="text" id="customerAddress" placeholder="Street, city, landmark">
                     </div>
                     <div class="form-group">
-                        <label>Order Type</label>
+                        <label>🚀 Order Type</label>
                         <select id="orderType">
                             <option value="Delivery">🚚 Delivery</option>
-                            <option value="Pickup">📦 Pickup</option>
-                            <option value="Reservation">🍽️ Reservation</option>
+                            <option value="Pickup">🏪 Pickup</option>
+                            <option value="Reservation">🍽️ Reservation (Dine-in)</option>
                         </select>
                     </div>
                     <div id="reservationFields" class="hidden">
                         <div class="form-group">
-                            <label>Number of People</label>
-                            <input type="number" id="pax" placeholder="Pax">
+                            <label>👥 Number of People (Pax)</label>
+                            <input type="number" id="pax" placeholder="2" min="1">
                         </div>
                         <div class="form-group">
-                            <label>Date</label>
+                            <label>📅 Date</label>
                             <input type="date" id="reservationDate">
                         </div>
                         <div class="form-group">
-                            <label>Time</label>
+                            <label>⏰ Time</label>
                             <input type="time" id="reservationTime">
                         </div>
+                        <div class="reservation-note">✨ Table will be reserved for 15 mins after arrival time.</div>
                     </div>
                     <div class="form-group">
-                        <label>Payment Method</label>
+                        <label>💳 Payment Method</label>
                         <select id="paymentMethod">
-                            <option value="Cash">Cash</option>
-                            <option value="Transfer">Transfer</option>
+                            <option value="Cash">💵 Cash on delivery / pickup</option>
+                            <option value="Card">💳 Card (POS / Online)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Special Requests</label>
-                        <textarea id="specialRequests" rows="2" placeholder="Any special requests?"></textarea>
+                        <label>📝 Special Requests</label>
+                        <textarea id="specialRequests" placeholder="Extra spicy, no onion, celebrate birthday..."></textarea>
                     </div>
-                    <button id="submitOrderBtn" class="btn-primary">Submit Order via WhatsApp</button>
+                    <button id="submitOrderBtn" class="btn btn-primary">📲 Send Order via WhatsApp</button>
+                    <p style="font-size: 11px; text-align: center; margin-top: 12px; color: #5b6e8c;">✅ Order summary will be sent directly to Cafe White Saffron</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<footer>
-    Cafe White Saffron, Maldives | Phone: 7667734
-</footer>
-
 <script>
-    let menuData = {};
-    let currentOrder = [];
+    // ---- Fallback MENU (CSV simulation with rich Maldivian-Cafe items) ----
+    // If menu.csv fails to load, we use this embedded delicious menu.
+    const DEFAULT_MENU = {
+        "☕ Coffee & Drinks": [
+            { name: "White Saffron Latte", price: 42 },
+            { name: "Maldivian Black Coffee", price: 28 },
+            { name: "Caramel Macchiato", price: 48 },
+            { name: "Iced Americano", price: 35 },
+            { name: "Fresh Lime Mint Juice", price: 32 }
+        ],
+        "🍝 Pasta & Rice": [
+            { name: "Creamy Alfredo Pasta", price: 85 },
+            { name: "Spicy Arrabbiata", price: 79 },
+            { name: "Chicken Biryani (Maldivian Style)", price: 95 },
+            { name: "Seafood Risotto", price: 110 }
+        ],
+        "🥗 Salads & Bowls": [
+            { name: "Tropical Avocado Salad", price: 65 },
+            { name: "Grilled Chicken Bowl", price: 88 },
+            { name: "Falafel Hummus Bowl", price: 72 }
+        ],
+        "🍰 Desserts": [
+            { name: "Saffron Cheesecake", price: 58 },
+            { name: "Coconut Panna Cotta", price: 45 },
+            { name: "Chocolate Brownie", price: 42 }
+        ],
+        "🍔 Burgers & Sandwiches": [
+            { name: "Crispy Chicken Burger", price: 72 },
+            { name: "Beef Classic Burger", price: 78 },
+            { name: "Tuna Melt Sandwich", price: 55 }
+        ]
+    };
 
-    async function loadMenu() {
-        const container = document.getElementById('menuContainer');
+    let menuData = {};
+    let currentOrder = [];   // each item: { name, price, quantity, total }
+
+    // ----- CSV loader with fallback -----
+    async function loadCSV() {
         try {
             const response = await fetch('menu.csv');
-            if (!response.ok) throw new Error('menu.csv not found');
+            if (!response.ok) throw new Error('CSV not found');
             const csvText = await response.text();
             parseCSV(csvText);
-            renderMenu();
-            renderCategoryNav();
         } catch (error) {
-            container.innerHTML = '<div style="text-align:center;padding:40px;color:#e74c3c;">Error loading menu. Please ensure menu.csv exists.</div>';
+            console.warn("menu.csv not found or error, using default in-memory menu");
+            useDefaultMenu();
         }
     }
 
     function parseCSV(csvText) {
-        const lines = csvText.split('\n');
+        const lines = csvText.split(/\r?\n/);
+        const categories = {};
+
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
             if (!line) continue;
+            // supports fields: category, name, price
             const parts = line.split(',');
             if (parts.length >= 3) {
                 const category = parts[0].trim();
                 const itemName = parts[1].trim();
                 const price = parseFloat(parts[2]);
-                if (!menuData[category]) menuData[category] = [];
-                menuData[category].push({ name: itemName, price: price });
+                if (!isNaN(price) && category && itemName) {
+                    if (!categories[category]) categories[category] = [];
+                    categories[category].push({ name: itemName, price: price });
+                }
             }
         }
+
+        if (Object.keys(categories).length === 0) {
+            useDefaultMenu();
+        } else {
+            menuData = categories;
+            renderMenu();
+            attachSearchEvents();
+            setTimeout(() => openFirstCategory(), 100);
+        }
+    }
+
+    function useDefaultMenu() {
+        menuData = JSON.parse(JSON.stringify(DEFAULT_MENU));
+        renderMenu();
+        attachSearchEvents();
+        setTimeout(() => openFirstCategory(), 80);
     }
 
     function renderMenu() {
         const container = document.getElementById('menuContainer');
+        if (!container) return;
         let html = '';
         for (const [category, items] of Object.entries(menuData)) {
+            if (!items.length) continue;
             html += `
-                <div class="category-card" data-category="${escapeHtml(category)}">
-                    <div class="category-header" onclick="toggleCategory('${escapeHtml(category)}')">
-                        <h2>${escapeHtml(category)}</h2>
-                        <span class="category-badge">${items.length}</span>
+                <div class="category">
+                    <div class="category-title" onclick="toggleCategory(this)">
+                        <span>${escapeHtml(category)}</span>
+                        <span class="category-count">${items.length}</span>
                     </div>
-                    <div class="items-container" id="cat-${escapeHtml(category).replace(/\s/g, '')}">
+                    <div class="items-list" data-category="${escapeHtml(category)}">
             `;
             for (const item of items) {
                 html += `
-                    <div class="menu-item" onclick="addToOrder('${escapeHtml(item.name)}', ${item.price})">
-                        <div class="item-info">
-                            <div class="item-name">${escapeHtml(item.name)}</div>
-                        </div>
-                        <div class="item-price">MVR ${item.price.toFixed(2)}</div>
+                    <div class="menu-item" data-itemname="${escapeHtml(item.name)}" data-price="${item.price}">
+                        <span class="item-name">${escapeHtml(item.name)}</span>
+                        <span class="item-price">MVR ${item.price.toFixed(2)}</span>
                     </div>
                 `;
             }
             html += `</div></div>`;
         }
         container.innerHTML = html;
-    }
 
-    function renderCategoryNav() {
-        const nav = document.getElementById('categoryNav');
-        let html = '';
-        for (const category of Object.keys(menuData)) {
-            html += `<a href="#" onclick="scrollToCategory('${escapeHtml(category)}'); return false;">${escapeHtml(category)}</a>`;
-        }
-        nav.innerHTML = html;
-    }
-
-    function scrollToCategory(category) {
-        const elements = document.querySelectorAll('.category-card');
-        for (let el of elements) {
-            if (el.getAttribute('data-category') === category) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                break;
+        // attach event listeners to each menu-item dynamically
+        document.querySelectorAll('.menu-item').forEach(el => {
+            const name = el.getAttribute('data-itemname');
+            const price = parseFloat(el.getAttribute('data-price'));
+            if (name && !isNaN(price)) {
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    addToOrder(name, price);
+                });
             }
+        });
+    }
+
+    // Re-attach search after dynamic render
+    function attachSearchEvents() {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            // Remove previous listener to avoid duplicates but we will replace with fresh
+            const newSearch = searchInput.cloneNode(true);
+            searchInput.parentNode.replaceChild(newSearch, searchInput);
+            newSearch.id = 'searchInput';
+            newSearch.addEventListener('keyup', function() {
+                const term = this.value.toLowerCase().trim();
+                const allMenuItems = document.querySelectorAll('.menu-item');
+                allMenuItems.forEach(item => {
+                    const nameSpan = item.querySelector('.item-name');
+                    if (nameSpan) {
+                        const text = nameSpan.innerText.toLowerCase();
+                        if (text.includes(term) || term === '') {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }
+                });
+                // Also expand categories to show visible items? optional: better UX expand all
+                if (term.length > 0) {
+                    document.querySelectorAll('.items-list').forEach(list => list.classList.add('open'));
+                }
+            });
         }
     }
 
-    function toggleCategory(category) {
-        const container = document.getElementById(`cat-${category.replace(/\s/g, '')}`);
-        if (container) container.classList.toggle('open');
+    function toggleCategory(element) {
+        const itemsDiv = element.nextElementSibling;
+        if (itemsDiv && itemsDiv.classList) {
+            itemsDiv.classList.toggle('open');
+        }
     }
 
     function addToOrder(name, price) {
-        const existing = currentOrder.find(item => item.name === name);
-        if (existing) {
-            existing.quantity++;
-            existing.total = existing.quantity * existing.price;
+        const existingIndex = currentOrder.findIndex(item => item.name === name);
+        if (existingIndex !== -1) {
+            currentOrder[existingIndex].quantity += 1;
+            currentOrder[existingIndex].total = currentOrder[existingIndex].quantity * currentOrder[existingIndex].price;
         } else {
-            currentOrder.push({ name, price, quantity: 1, total: price });
+            currentOrder.push({
+                name: name,
+                price: price,
+                quantity: 1,
+                total: price
+            });
         }
-        updateCartDisplay();
-        
-        // Visual feedback
-        const items = document.querySelectorAll('.menu-item');
-        for (let item of items) {
-            if (item.querySelector('.item-name').innerText === name) {
-                item.style.background = '#fef0e0';
-                setTimeout(() => item.style.background = '', 300);
-                break;
-            }
-        }
+        updateOrderDisplay();
+        // simple micro feedback
+        const feedback = document.createElement('div');
+        feedback.textContent = `✓ +1 ${name}`;
+        feedback.style.position = 'fixed';
+        feedback.style.bottom = '20px';
+        feedback.style.right = '20px';
+        feedback.style.background = '#2e7d32';
+        feedback.style.color = 'white';
+        feedback.style.padding = '6px 14px';
+        feedback.style.borderRadius = '60px';
+        feedback.style.fontSize = '12px';
+        feedback.style.zIndex = '999';
+        feedback.style.opacity = '0.9';
+        document.body.appendChild(feedback);
+        setTimeout(() => feedback.remove(), 1000);
     }
 
-    function updateCartDisplay() {
-        const container = document.getElementById('cartItems');
-        const totalContainer = document.getElementById('cartTotal');
-        
+    function updateOrderDisplay() {
+        const container = document.getElementById('orderItems');
+        const totalContainer = document.getElementById('orderTotal');
+        if (!container) return;
+
         if (currentOrder.length === 0) {
-            container.innerHTML = '<div class="cart-empty">No items selected</div>';
+            container.innerHTML = '<div class="empty-message">🍃 Your cart is empty. Tap any menu item 🍃</div>';
             totalContainer.innerHTML = 'Total: MVR 0.00';
             return;
         }
-        
+
         let html = '';
         let grandTotal = 0;
-        currentOrder.forEach((item, index) => {
+        currentOrder.forEach((item, idx) => {
             grandTotal += item.total;
             html += `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${escapeHtml(item.name)}</div>
-                    </div>
-                    <div class="cart-item-controls">
-                        <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                <div class="order-item">
+                    <div class="order-item-info">${escapeHtml(item.name)}</div>
+                    <div class="order-item-quantity">
+                        <button class="qty-btn" data-index="${idx}" data-delta="-1">-</button>
                         <span>${item.quantity}</span>
-                        <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        <button class="qty-btn" data-index="${idx}" data-delta="1">+</button>
                     </div>
-                    <div class="cart-item-price">MVR ${item.total.toFixed(2)}</div>
+                    <div class="order-item-price">MVR ${item.total.toFixed(2)}</div>
+                    <div class="remove-item" data-index="${idx}">✕</div>
                 </div>
             `;
         });
         container.innerHTML = html;
         totalContainer.innerHTML = `Total: MVR ${grandTotal.toFixed(2)}`;
-    }
 
-    function updateQuantity(index, change) {
-        const item = currentOrder[index];
-        if (item) {
-            item.quantity += change;
-            if (item.quantity <= 0) {
-                currentOrder.splice(index, 1);
-            } else {
-                item.total = item.quantity * item.price;
-            }
-            updateCartDisplay();
-        }
-    }
-
-    function clearOrder() {
-        if (confirm('Clear all items from your order?')) {
-            currentOrder = [];
-            updateCartDisplay();
-        }
-    }
-
-    function searchMenu() {
-        const term = document.getElementById('searchInput').value.toLowerCase();
-        const allItems = document.querySelectorAll('.menu-item');
-        allItems.forEach(item => {
-            const name = item.querySelector('.item-name').innerText.toLowerCase();
-            item.style.display = name.includes(term) ? 'flex' : 'none';
+        // attach dynamic buttons events
+        container.querySelectorAll('.qty-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const index = parseInt(btn.getAttribute('data-index'));
+                const delta = parseInt(btn.getAttribute('data-delta'));
+                if (!isNaN(index) && !isNaN(delta)) updateQuantity(index, delta);
+            });
+        });
+        container.querySelectorAll('.remove-item').forEach(rm => {
+            rm.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const index = parseInt(rm.getAttribute('data-index'));
+                if (!isNaN(index)) removeFromOrder(index);
+            });
         });
     }
 
+    function updateQuantity(index, change) {
+        if (!currentOrder[index]) return;
+        const newQty = currentOrder[index].quantity + change;
+        if (newQty <= 0) {
+            currentOrder.splice(index, 1);
+        } else {
+            currentOrder[index].quantity = newQty;
+            currentOrder[index].total = currentOrder[index].quantity * currentOrder[index].price;
+        }
+        updateOrderDisplay();
+    }
+
+    function removeFromOrder(index) {
+        currentOrder.splice(index, 1);
+        updateOrderDisplay();
+    }
+
+    function clearOrder() {
+        if (currentOrder.length === 0) return;
+        if (confirm('🧹 Clear all items from your basket?')) {
+            currentOrder = [];
+            updateOrderDisplay();
+        }
+    }
+
     function toggleReservationFields() {
-        const type = document.getElementById('orderType').value;
-        const fields = document.getElementById('reservationFields');
-        fields.classList.toggle('hidden', type !== 'Reservation');
+        const orderType = document.getElementById('orderType').value;
+        const reservationDiv = document.getElementById('reservationFields');
+        if (reservationDiv) {
+            reservationDiv.classList.toggle('hidden', orderType !== 'Reservation');
+        }
     }
 
     function sendOrder() {
-        const name = document.getElementById('customerName').value.trim();
-        const mobile = document.getElementById('customerMobile').value.trim();
-        
+        const name = document.getElementById('customerName')?.value.trim();
+        const mobile = document.getElementById('customerMobile')?.value.trim();
+        const address = document.getElementById('customerAddress')?.value.trim();
+        const orderType = document.getElementById('orderType').value;
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const special = document.getElementById('specialRequests')?.value.trim();
+
         if (!name || !mobile) {
-            alert('Please enter your name and mobile number.');
+            alert("❌ Please provide your full name and mobile number.");
             return;
         }
-        
-        const type = document.getElementById('orderType').value;
-        const address = document.getElementById('customerAddress').value;
-        const payment = document.getElementById('paymentMethod').value;
-        const special = document.getElementById('specialRequests').value;
-        
-        let message = `CAFE WHITE SAFFRON ORDER\n\n`;
-        message += `CUSTOMER DETAILS\n`;
-        message += `Name: ${name}\n`;
-        message += `Mobile: ${mobile}\n`;
-        if (address) message += `Address: ${address}\n`;
-        message += `Order Type: ${type}\n`;
-        message += `Payment: ${payment}\n`;
-        
-        if (type === 'Reservation') {
-            const pax = document.getElementById('pax').value;
-            const date = document.getElementById('reservationDate').value;
-            const time = document.getElementById('reservationTime').value;
-            message += `\nRESERVATION DETAILS\n`;
-            if (pax) message += `Pax: ${pax}\n`;
-            if (date) message += `Date: ${date}\n`;
-            if (time) message += `Time: ${time}\n`;
+        if (mobile.length < 6) {
+            alert("⚠️ Please enter a valid mobile number.");
+            return;
+        }
+
+        let message = `☕ *CAFE WHITE SAFFRON* 🧡\n━━━━━━━━━━━━━━━━━\n👤 *Customer:* ${name}\n📞 *Mobile:* ${mobile}\n`;
+        if (address && orderType !== 'Reservation') message += `🏠 *Address:* ${address}\n`;
+        message += `🚀 *Order Type:* ${orderType}\n💳 *Payment:* ${paymentMethod}\n`;
+
+        if (orderType === 'Reservation') {
+            const pax = document.getElementById('pax')?.value;
+            const date = document.getElementById('reservationDate')?.value;
+            const time = document.getElementById('reservationTime')?.value;
+            message += `\n🍽️ *RESERVATION DETAILS*\n`;
+            if (pax) message += `👥 Pax: ${pax}\n`;
+            if (date) message += `📅 Date: ${date}\n`;
+            if (time) message += `⏰ Time: ${time}\n`;
+            message += `✨ Table will be ready for you ✨\n`;
+            if (currentOrder.length > 0) {
+                message += `\n📋 *Pre-ordered items (optional)*\n`;
+                let totalPre = 0;
+                currentOrder.forEach(item => {
+                    message += `• ${item.name} x${item.quantity} = MVR ${item.total.toFixed(2)}\n`;
+                    totalPre += item.total;
+                });
+                if (totalPre > 0) message += `💸 Pre-order total: MVR ${totalPre.toFixed(2)}\n`;
+            }
         } else {
             if (currentOrder.length === 0) {
-                alert('Please add items to your order.');
+                alert("⚠️ Please add items to your order before submitting.");
                 return;
             }
-            message += `\nORDER ITEMS\n`;
-            let total = 0;
+            message += `\n📦 *ORDER ITEMS*\n`;
+            let totalSum = 0;
             currentOrder.forEach(item => {
-                total += item.total;
-                message += `${item.name} x${item.quantity} = MVR ${item.total.toFixed(2)}\n`;
+                totalSum += item.total;
+                message += `▪ ${item.name}  x${item.quantity}  =  MVR ${item.total.toFixed(2)}\n`;
             });
-            message += `\nTOTAL: MVR ${total.toFixed(2)}\n`;
+            message += `━━━━━━━━━━━━━━━━━\n💰 *TOTAL:* MVR ${totalSum.toFixed(2)}\n`;
         }
+
+        if (special) {
+            message += `\n📝 *Special Notes:* ${special}\n`;
+        }
+        message += `\n📍 Cafe White Saffron, Maldives\n📞 Contact: 7667734\n🕊️ Thank you! `;
         
-        if (special) message += `\nSPECIAL REQUESTS\n${special}\n`;
-        message += `\nCafe White Saffron, Maldives\nPhone: 7667734`;
-        
-        window.open('https://wa.me/7667734?text=' + encodeURIComponent(message), '_blank');
+        const whatsappNumber = "9607667734";  // international format without '+'
+        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
+    function openFirstCategory() {
+        const firstList = document.querySelector('.items-list');
+        if (firstList) firstList.classList.add('open');
     }
 
     function escapeHtml(str) {
+        if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
             if (m === '&') return '&amp;';
             if (m === '<') return '&lt;';
@@ -727,18 +846,28 @@
         });
     }
 
-    document.getElementById('clearCartBtn').addEventListener('click', clearOrder);
-    document.getElementById('submitOrderBtn').addEventListener('click', sendOrder);
-    document.getElementById('searchInput').addEventListener('keyup', searchMenu);
-    document.getElementById('orderType').addEventListener('change', toggleReservationFields);
-    
-    loadMenu();
-    
-    // Open first category by default after load
-    setTimeout(() => {
-        const firstContainer = document.querySelector('.items-container');
-        if (firstContainer) firstContainer.classList.add('open');
-    }, 500);
+    // global exposure for inline onclick
+    window.toggleCategory = toggleCategory;
+    window.addToOrder = addToOrder;
+    window.updateQuantity = updateQuantity;
+    window.removeFromOrder = removeFromOrder;
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        loadCSV();
+        const clearBtn = document.getElementById('clearOrderBtn');
+        if (clearBtn) clearBtn.addEventListener('click', clearOrder);
+        const submitBtn = document.getElementById('submitOrderBtn');
+        if (submitBtn) submitBtn.addEventListener('click', sendOrder);
+        const orderTypeSelect = document.getElementById('orderType');
+        if (orderTypeSelect) orderTypeSelect.addEventListener('change', toggleReservationFields);
+        toggleReservationFields();
+        // set default date
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('reservationDate');
+        if (dateInput) dateInput.value = today;
+    });
 </script>
 </body>
 </html>
+```
