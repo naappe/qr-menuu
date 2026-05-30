@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe White Saffron - Online Order System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Cafe White Saffron | Authentic Maldivian Flavors</title>
     <style>
         * {
             margin: 0;
@@ -12,253 +12,354 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #fef8f0;
+            color: #2c1810;
+            line-height: 1.5;
         }
 
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+            color: #fef8f0;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="white" d="M20,20 L30,20 L25,30 Z M70,70 L80,70 L75,80 Z M50,10 L55,20 L45,20 Z"/></svg>');
+            background-repeat: repeat;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .hero-phone {
+            display: inline-block;
+            background: #e67e22;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: background 0.3s;
+            position: relative;
+        }
+
+        .hero-phone:hover {
+            background: #d35400;
+        }
+
+        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Header */
-        .header {
-            background: #1a1a2e;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
+        /* Category Navigation */
+        .category-nav {
+            background: white;
+            border-radius: 60px;
+            padding: 8px 12px;
+            margin: -30px auto 30px auto;
+            max-width: 90%;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+            position: relative;
+            z-index: 10;
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
+        .category-nav::-webkit-scrollbar {
+            height: 4px;
         }
 
-        .header p {
-            font-size: 14px;
-            opacity: 0.8;
+        .category-nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 3px;
+            color: #4a2c1a;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            border-radius: 40px;
+            transition: all 0.2s;
         }
 
-        /* Two column layout */
-        .main-content {
+        .category-nav a:hover {
+            background: #fef0e0;
+        }
+
+        /* Two Column Layout */
+        .main-grid {
             display: flex;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 30px;
             flex-wrap: wrap;
         }
 
         .menu-section {
             flex: 2;
-            min-width: 300px;
-        }
-
-        .order-section {
-            flex: 1;
             min-width: 280px;
         }
 
-        /* Cards */
-        .card {
+        .cart-section {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        /* Category Cards */
+        .category-card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .card-header {
-            background: #2c3e50;
-            color: white;
-            padding: 12px 15px;
-            font-weight: bold;
-            font-size: 16px;
+        .category-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        .card-body {
-            padding: 15px;
-        }
-
-        /* Search */
-        .search-box {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        /* Category styling */
-        .category {
-            margin-bottom: 15px;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .category-title {
-            background: #ecf0f1;
-            padding: 10px 15px;
-            font-weight: bold;
+        .category-header {
+            background: linear-gradient(135deg, #f5e6d3 0%, #fef0e0 100%);
+            padding: 15px 20px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14px;
+            border-bottom: 2px solid #e67e22;
         }
 
-        .category-title:hover {
-            background: #e0e4e8;
+        .category-header h2 {
+            font-size: 1.3rem;
+            color: #2c1810;
+            font-weight: 600;
         }
 
-        .category-count {
-            background: #95a5a6;
+        .category-badge {
+            background: #e67e22;
             color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
-        .items-list {
+        .items-container {
             display: none;
-            padding: 5px 0;
+            padding: 10px 0;
         }
 
-        .items-list.open {
+        .items-container.open {
             display: block;
         }
 
+        /* Menu Item */
         .menu-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 15px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0e0d0;
             transition: background 0.2s;
+            cursor: pointer;
         }
 
         .menu-item:hover {
-            background: #f8f9fa;
+            background: #fef8f0;
+        }
+
+        .item-info {
+            flex: 1;
         }
 
         .item-name {
-            font-size: 14px;
+            font-weight: 500;
+            color: #2c1810;
+            font-size: 0.95rem;
         }
 
         .item-price {
-            font-weight: bold;
-            color: #27ae60;
-            font-size: 14px;
+            color: #e67e22;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-left: 15px;
+            white-space: nowrap;
         }
 
-        /* Order summary */
-        .order-items {
-            max-height: 350px;
+        /* Cart Styles */
+        .cart-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .cart-header {
+            background: #2c1810;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .cart-items {
+            max-height: 400px;
             overflow-y: auto;
-            margin-bottom: 15px;
+            padding: 15px;
         }
 
-        .order-item {
+        .cart-empty {
+            text-align: center;
+            color: #aaa;
+            padding: 30px;
+        }
+
+        .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #eee;
-            font-size: 13px;
         }
 
-        .order-item-info {
+        .cart-item-info {
             flex: 2;
         }
 
-        .order-item-quantity {
+        .cart-item-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .cart-item-controls {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .qty-btn {
-            background: #ecf0f1;
+            background: #f0e0d0;
             border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.2s;
         }
 
         .qty-btn:hover {
-            background: #bdc3c7;
+            background: #e0c8b0;
         }
 
-        .order-item-price {
-            min-width: 70px;
+        .cart-item-price {
+            min-width: 65px;
             text-align: right;
-            font-weight: bold;
+            font-weight: 600;
+            color: #e67e22;
+            font-size: 0.85rem;
         }
 
-        .remove-item {
-            color: #e74c3c;
-            cursor: pointer;
-            margin-left: 10px;
-            font-weight: bold;
+        .cart-total {
+            background: #fef8f0;
+            padding: 15px;
+            border-top: 2px solid #e67e22;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
-        .order-total {
-            border-top: 2px solid #ddd;
-            padding-top: 10px;
-            margin-top: 10px;
-            text-align: right;
-            font-size: 18px;
-            font-weight: bold;
+        /* Form Styles */
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-top: 20px;
+            overflow: hidden;
         }
 
-        /* Form styling */
+        .form-header {
+            background: #e67e22;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+
+        .form-body {
+            padding: 20px;
+        }
+
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #555;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #4a2c1a;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 8px 10px;
+            padding: 10px 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 60px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e67e22;
         }
 
         .btn-primary {
+            width: 100%;
             background: #27ae60;
             color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
         }
 
         .btn-primary:hover {
@@ -266,93 +367,81 @@
         }
 
         .btn-secondary {
+            width: 100%;
             background: #95a5a6;
             color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
             margin-top: 10px;
-        }
-
-        .btn-secondary:hover {
-            background: #7f8c8d;
         }
 
         .hidden {
             display: none;
         }
 
-        .badge {
-            background: #e74c3c;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 11px;
-            margin-left: 8px;
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
 
-        .empty-message {
+        footer {
             text-align: center;
-            color: #999;
-            padding: 20px;
-            font-size: 14px;
-        }
-
-        hr {
-            margin: 15px 0;
-            border: none;
-            border-top: 1px solid #eee;
+            padding: 30px;
+            color: #aaa;
+            font-size: 0.8rem;
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                flex-direction: column;
-            }
+            .hero h1 { font-size: 1.8rem; }
+            .category-nav a { padding: 8px 12px; font-size: 0.75rem; }
+            .category-header h2 { font-size: 1.1rem; }
+            .item-name { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>Cafe White Saffron</h1>
-        <p>Maldives | Phone: 7667734</p>
-    </div>
+<div class="hero">
+    <h1>Cafe White Saffron</h1>
+    <p>Authentic Maldivian Flavors • Fresh • Delicious</p>
+    <p>Maldives</p>
+    <a href="tel:7667734" class="hero-phone">📞 Call 7667734</a>
+</div>
 
-    <div class="main-content">
-        <!-- Menu Section -->
+<div class="container">
+    <div class="category-nav" id="categoryNav"></div>
+
+    <div class="main-grid">
         <div class="menu-section">
-            <div class="card">
-                <div class="card-header">
-                    Menu
-                </div>
-                <div class="card-body">
-                    <input type="text" id="searchInput" class="search-box" placeholder="Search menu items...">
-                    <div id="menuContainer"></div>
-                </div>
-            </div>
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search menu...">
+            <div id="menuContainer">Loading menu...</div>
         </div>
 
-        <!-- Order Section -->
-        <div class="order-section">
-            <div class="card">
-                <div class="card-header">
-                    Your Order
+        <div class="cart-section">
+            <div class="cart-card">
+                <div class="cart-header">Your Order</div>
+                <div id="cartItems" class="cart-items">
+                    <div class="cart-empty">No items selected</div>
                 </div>
-                <div class="card-body">
-                    <div id="orderItems" class="order-items">
-                        <div class="empty-message">No items selected</div>
-                    </div>
-                    <div id="orderTotal" class="order-total">Total: MVR 0.00</div>
-                    <button id="clearOrderBtn" class="btn btn-secondary">Clear Order</button>
+                <div id="cartTotal" class="cart-total">Total: MVR 0.00</div>
+                <div style="padding: 0 15px 15px 15px;">
+                    <button id="clearCartBtn" class="btn-secondary">Clear Order</button>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    Customer Information
-                </div>
-                <div class="card-body">
+            <div class="form-card">
+                <div class="form-header">Customer Details</div>
+                <div class="form-body">
                     <div class="form-group">
                         <label>Full Name *</label>
-                        <input type="text" id="customerName" placeholder="Enter full name">
+                        <input type="text" id="customerName" placeholder="Enter your name">
                     </div>
                     <div class="form-group">
                         <label>Mobile Number *</label>
@@ -365,9 +454,9 @@
                     <div class="form-group">
                         <label>Order Type</label>
                         <select id="orderType">
-                            <option value="Delivery">Delivery</option>
-                            <option value="Pickup">Pickup</option>
-                            <option value="Reservation">Reservation</option>
+                            <option value="Delivery">🚚 Delivery</option>
+                            <option value="Pickup">📦 Pickup</option>
+                            <option value="Reservation">🍽️ Reservation</option>
                         </select>
                     </div>
                     <div id="reservationFields" class="hidden">
@@ -393,87 +482,102 @@
                     </div>
                     <div class="form-group">
                         <label>Special Requests</label>
-                        <textarea id="specialRequests" placeholder="Any special requests..."></textarea>
+                        <textarea id="specialRequests" rows="2" placeholder="Any special requests?"></textarea>
                     </div>
-                    <button id="submitOrderBtn" class="btn btn-primary">Submit Order via WhatsApp</button>
+                    <button id="submitOrderBtn" class="btn-primary">Submit Order via WhatsApp</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<footer>
+    Cafe White Saffron, Maldives | Phone: 7667734
+</footer>
+
 <script>
     let menuData = {};
     let currentOrder = [];
 
-    // Load CSV file
-    async function loadCSV() {
+    async function loadMenu() {
+        const container = document.getElementById('menuContainer');
         try {
             const response = await fetch('menu.csv');
+            if (!response.ok) throw new Error('menu.csv not found');
             const csvText = await response.text();
             parseCSV(csvText);
+            renderMenu();
+            renderCategoryNav();
         } catch (error) {
-            document.getElementById('menuContainer').innerHTML = '<div class="empty-message">Error loading menu.csv. Please ensure the file exists.</div>';
+            container.innerHTML = '<div style="text-align:center;padding:40px;color:#e74c3c;">Error loading menu. Please ensure menu.csv exists.</div>';
         }
     }
 
     function parseCSV(csvText) {
         const lines = csvText.split('\n');
-        const categories = {};
-
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
             if (!line) continue;
-
             const parts = line.split(',');
             if (parts.length >= 3) {
                 const category = parts[0].trim();
                 const itemName = parts[1].trim();
                 const price = parseFloat(parts[2]);
-
-                if (!categories[category]) {
-                    categories[category] = [];
-                }
-                categories[category].push({ name: itemName, price: price });
+                if (!menuData[category]) menuData[category] = [];
+                menuData[category].push({ name: itemName, price: price });
             }
         }
-
-        menuData = categories;
-        renderMenu();
     }
 
     function renderMenu() {
         const container = document.getElementById('menuContainer');
         let html = '';
-
         for (const [category, items] of Object.entries(menuData)) {
             html += `
-                <div class="category">
-                    <div class="category-title" onclick="toggleCategory(this)">
-                        <span>${category}</span>
-                        <span class="category-count">${items.length}</span>
+                <div class="category-card" data-category="${escapeHtml(category)}">
+                    <div class="category-header" onclick="toggleCategory('${escapeHtml(category)}')">
+                        <h2>${escapeHtml(category)}</h2>
+                        <span class="category-badge">${items.length}</span>
                     </div>
-                    <div class="items-list" data-category="${category}">
+                    <div class="items-container" id="cat-${escapeHtml(category).replace(/\s/g, '')}">
             `;
             for (const item of items) {
                 html += `
                     <div class="menu-item" onclick="addToOrder('${escapeHtml(item.name)}', ${item.price})">
-                        <span class="item-name">${escapeHtml(item.name)}</span>
-                        <span class="item-price">MVR ${item.price.toFixed(2)}</span>
+                        <div class="item-info">
+                            <div class="item-name">${escapeHtml(item.name)}</div>
+                        </div>
+                        <div class="item-price">MVR ${item.price.toFixed(2)}</div>
                     </div>
                 `;
             }
             html += `</div></div>`;
         }
-
         container.innerHTML = html;
     }
 
-    function toggleCategory(element) {
-        const itemsDiv = element.nextElementSibling;
-        if (itemsDiv) {
-            itemsDiv.classList.toggle('open');
+    function renderCategoryNav() {
+        const nav = document.getElementById('categoryNav');
+        let html = '';
+        for (const category of Object.keys(menuData)) {
+            html += `<a href="#" onclick="scrollToCategory('${escapeHtml(category)}'); return false;">${escapeHtml(category)}</a>`;
         }
+        nav.innerHTML = html;
+    }
+
+    function scrollToCategory(category) {
+        const elements = document.querySelectorAll('.category-card');
+        for (let el of elements) {
+            if (el.getAttribute('data-category') === category) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                break;
+            }
+        }
+    }
+
+    function toggleCategory(category) {
+        const container = document.getElementById(`cat-${category.replace(/\s/g, '')}`);
+        if (container) container.classList.toggle('open');
     }
 
     function addToOrder(name, price) {
@@ -482,45 +586,49 @@
             existing.quantity++;
             existing.total = existing.quantity * existing.price;
         } else {
-            currentOrder.push({
-                name: name,
-                price: price,
-                quantity: 1,
-                total: price
-            });
+            currentOrder.push({ name, price, quantity: 1, total: price });
         }
-        updateOrderDisplay();
+        updateCartDisplay();
+        
+        // Visual feedback
+        const items = document.querySelectorAll('.menu-item');
+        for (let item of items) {
+            if (item.querySelector('.item-name').innerText === name) {
+                item.style.background = '#fef0e0';
+                setTimeout(() => item.style.background = '', 300);
+                break;
+            }
+        }
     }
 
-    function updateOrderDisplay() {
-        const container = document.getElementById('orderItems');
-        const totalContainer = document.getElementById('orderTotal');
-
+    function updateCartDisplay() {
+        const container = document.getElementById('cartItems');
+        const totalContainer = document.getElementById('cartTotal');
+        
         if (currentOrder.length === 0) {
-            container.innerHTML = '<div class="empty-message">No items selected</div>';
+            container.innerHTML = '<div class="cart-empty">No items selected</div>';
             totalContainer.innerHTML = 'Total: MVR 0.00';
             return;
         }
-
+        
         let html = '';
         let grandTotal = 0;
-
         currentOrder.forEach((item, index) => {
             grandTotal += item.total;
             html += `
-                <div class="order-item">
-                    <div class="order-item-info">${escapeHtml(item.name)}</div>
-                    <div class="order-item-quantity">
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${escapeHtml(item.name)}</div>
+                    </div>
+                    <div class="cart-item-controls">
                         <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
                         <span>${item.quantity}</span>
                         <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
                     </div>
-                    <div class="order-item-price">MVR ${item.total.toFixed(2)}</div>
-                    <div class="remove-item" onclick="removeFromOrder(${index})">×</div>
+                    <div class="cart-item-price">MVR ${item.total.toFixed(2)}</div>
                 </div>
             `;
         });
-
         container.innerHTML = html;
         totalContainer.innerHTML = `Total: MVR ${grandTotal.toFixed(2)}`;
     }
@@ -534,64 +642,55 @@
             } else {
                 item.total = item.quantity * item.price;
             }
-            updateOrderDisplay();
+            updateCartDisplay();
         }
-    }
-
-    function removeFromOrder(index) {
-        currentOrder.splice(index, 1);
-        updateOrderDisplay();
     }
 
     function clearOrder() {
         if (confirm('Clear all items from your order?')) {
             currentOrder = [];
-            updateOrderDisplay();
+            updateCartDisplay();
         }
     }
 
     function searchMenu() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const term = document.getElementById('searchInput').value.toLowerCase();
         const allItems = document.querySelectorAll('.menu-item');
-
         allItems.forEach(item => {
-            const itemName = item.querySelector('.item-name').innerText.toLowerCase();
-            if (itemName.includes(searchTerm)) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
-            }
+            const name = item.querySelector('.item-name').innerText.toLowerCase();
+            item.style.display = name.includes(term) ? 'flex' : 'none';
         });
     }
 
     function toggleReservationFields() {
-        const orderType = document.getElementById('orderType').value;
-        const reservationFields = document.getElementById('reservationFields');
-        reservationFields.classList.toggle('hidden', orderType !== 'Reservation');
+        const type = document.getElementById('orderType').value;
+        const fields = document.getElementById('reservationFields');
+        fields.classList.toggle('hidden', type !== 'Reservation');
     }
 
     function sendOrder() {
         const name = document.getElementById('customerName').value.trim();
         const mobile = document.getElementById('customerMobile').value.trim();
-        const address = document.getElementById('customerAddress').value.trim();
-        const orderType = document.getElementById('orderType').value;
-        const payment = document.getElementById('paymentMethod').value;
-        const special = document.getElementById('specialRequests').value.trim();
-
+        
         if (!name || !mobile) {
             alert('Please enter your name and mobile number.');
             return;
         }
-
+        
+        const type = document.getElementById('orderType').value;
+        const address = document.getElementById('customerAddress').value;
+        const payment = document.getElementById('paymentMethod').value;
+        const special = document.getElementById('specialRequests').value;
+        
         let message = `CAFE WHITE SAFFRON ORDER\n\n`;
         message += `CUSTOMER DETAILS\n`;
         message += `Name: ${name}\n`;
         message += `Mobile: ${mobile}\n`;
         if (address) message += `Address: ${address}\n`;
-        message += `Order Type: ${orderType}\n`;
+        message += `Order Type: ${type}\n`;
         message += `Payment: ${payment}\n`;
-
-        if (orderType === 'Reservation') {
+        
+        if (type === 'Reservation') {
             const pax = document.getElementById('pax').value;
             const date = document.getElementById('reservationDate').value;
             const time = document.getElementById('reservationTime').value;
@@ -604,7 +703,6 @@
                 alert('Please add items to your order.');
                 return;
             }
-
             message += `\nORDER ITEMS\n`;
             let total = 0;
             currentOrder.forEach(item => {
@@ -613,15 +711,11 @@
             });
             message += `\nTOTAL: MVR ${total.toFixed(2)}\n`;
         }
-
-        if (special) {
-            message += `\nSPECIAL REQUESTS\n${special}\n`;
-        }
-
+        
+        if (special) message += `\nSPECIAL REQUESTS\n${special}\n`;
         message += `\nCafe White Saffron, Maldives\nPhone: 7667734`;
-
-        const url = 'https://wa.me/7667734?text=' + encodeURIComponent(message);
-        window.open(url, '_blank');
+        
+        window.open('https://wa.me/7667734?text=' + encodeURIComponent(message), '_blank');
     }
 
     function escapeHtml(str) {
@@ -633,24 +727,18 @@
         });
     }
 
-    // Event listeners
-    document.getElementById('clearOrderBtn').addEventListener('click', clearOrder);
+    document.getElementById('clearCartBtn').addEventListener('click', clearOrder);
     document.getElementById('submitOrderBtn').addEventListener('click', sendOrder);
     document.getElementById('searchInput').addEventListener('keyup', searchMenu);
     document.getElementById('orderType').addEventListener('change', toggleReservationFields);
-
-    // Open first category by default
-    function openFirstCategory() {
-        const firstItems = document.querySelector('.items-list');
-        if (firstItems) {
-            firstItems.classList.add('open');
-        }
-    }
-
-    // Load menu
-    loadCSV();
-    setTimeout(openFirstCategory, 200);
+    
+    loadMenu();
+    
+    // Open first category by default after load
+    setTimeout(() => {
+        const firstContainer = document.querySelector('.items-container');
+        if (firstContainer) firstContainer.classList.add('open');
+    }, 500);
 </script>
-
 </body>
 </html>
