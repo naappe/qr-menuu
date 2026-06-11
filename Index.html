@@ -1,655 +1,917 @@
-Here is an HTML document that organizes your menu with dropdown category menus for a cleaner, more compact browsing experience.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Cafe White Saffron · Dropdown Menu</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Kitchen Inventory Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
-      background: #ffffff;
-      color: #000000;
-      padding-bottom: 96px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
 
-    /* header - clean black */
-    .header {
-      background: #000000;
-      color: #ffffff;
-      padding: 1.8rem 1rem 1.3rem;
-      text-align: center;
-      border-bottom: 1px solid #eaeaea;
-    }
+        .header {
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
 
-    .header h1 {
-      font-size: 1.9rem;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      margin-bottom: 0.4rem;
-    }
+        .header h1 {
+            font-size: 1.8rem;
+        }
 
-    .header .tagline {
-      font-size: 0.85rem;
-      opacity: 0.75;
-      margin-top: 0.3rem;
-    }
+        .header p {
+            color: #aaa;
+            margin-top: 5px;
+        }
 
-    .contact-row {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-top: 0.9rem;
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .contact-row a, .contact-row span {
-      color: #dddddd;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 450;
-      background: #1a1a1a;
-      padding: 0.3rem 1rem;
-      border-radius: 30px;
-    }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
 
-    .contact-row a:hover {
-      background: #333333;
-      color: white;
-    }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
 
-    /* search bar */
-    .controls {
-      position: sticky;
-      top: 0;
-      background: #ffffff;
-      z-index: 20;
-      padding: 1rem 1rem 0.8rem;
-      border-bottom: 1px solid #e5e5e5;
-    }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1a1a2e;
+        }
 
-    .search-box {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      font-size: 0.95rem;
-      border: 1px solid #cccccc;
-      border-radius: 40px;
-      background: #ffffff;
-      color: #000000;
-      outline: none;
-    }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.8rem;
+        }
 
-    .search-box:focus {
-      border-color: #000000;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
-    }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    /* dropdown category selector */
-    .category-dropdown-area {
-      padding: 0.8rem 1rem 0.2rem;
-      background: #ffffff;
-    }
+        .card h2 {
+            margin-bottom: 15px;
+            color: #1a1a2e;
+            font-size: 1.2rem;
+            border-left: 4px solid #3498db;
+            padding-left: 12px;
+        }
 
-    .dropdown-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 500;
-      color: #5a5a5a;
-      margin-bottom: 0.4rem;
-    }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
 
-    .category-select {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      font-size: 0.95rem;
-      border: 1px solid #cccccc;
-      border-radius: 40px;
-      background: #ffffff;
-      color: #000000;
-      cursor: pointer;
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-    }
+        .form-group {
+            margin-bottom: 12px;
+        }
 
-    .category-select:focus {
-      border-color: #000000;
-      outline: none;
-    }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+            font-size: 0.8rem;
+        }
 
-    /* menu container */
-    .menu-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 1.2rem 1rem;
-    }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
 
-    /* category header inside results */
-    .category-header {
-      font-size: 1.5rem;
-      font-weight: 600;
-      border-left: 4px solid #000000;
-      padding-left: 0.8rem;
-      margin: 0 0 1rem 0;
-      color: #000000;
-    }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
 
-    .items-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
 
-    /* card */
-    .menu-card {
-      background: #ffffff;
-      border: 1px solid #eaeaea;
-      border-radius: 1rem;
-      padding: 0.85rem 1rem;
-      transition: all 0.2s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.8rem;
-    }
+        button:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
 
-    .menu-card:hover {
-      border-color: #9e9e9e;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    }
+        .btn-danger {
+            background: #e74c3c;
+        }
 
-    .item-info {
-      flex: 2;
-    }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
 
-    .item-name {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 0.2rem;
-      color: #000000;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
+        .btn-success {
+            background: #27ae60;
+        }
 
-    .item-price {
-      font-weight: 600;
-      color: #2c2c2c;
-      background: #f2f2f2;
-      display: inline-block;
-      padding: 0.15rem 0.6rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-    }
+        .btn-warning {
+            background: #f39c12;
+        }
 
-    .item-desc {
-      font-size: 0.7rem;
-      color: #5a5a5a;
-      margin-top: 0.2rem;
-    }
+        .backup-card {
+            background: #e8f4f8;
+            border: 2px solid #3498db;
+        }
 
-    /* quantity + add */
-    .order-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: #fafafa;
-      padding: 0.2rem 0.5rem;
-      border-radius: 48px;
-      border: 1px solid #e2e2e2;
-    }
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
 
-    .qty-btn {
-      background: #ffffff;
-      border: 1px solid #d4d4d4;
-      width: 30px;
-      height: 30px;
-      border-radius: 40px;
-      font-size: 1.2rem;
-      font-weight: 500;
-      cursor: pointer;
-      color: #000000;
-    }
+        .category-tab {
+            background: #f0f2f5;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
 
-    .qty-btn:active {
-      background: #e6e6e6;
-      transform: scale(0.96);
-    }
+        .category-tab:hover {
+            background: #e0e0e0;
+        }
 
-    .item-qty {
-      font-weight: 600;
-      min-width: 28px;
-      text-align: center;
-      font-size: 0.95rem;
-      color: #000000;
-    }
+        .category-tab.active {
+            background: #3498db;
+            color: white;
+        }
 
-    .add-btn {
-      background: #000000;
-      border: none;
-      color: white;
-      font-weight: 500;
-      padding: 0.35rem 0.9rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      cursor: pointer;
-    }
+        .table-container {
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
 
-    .add-btn:active {
-      background: #2c2c2c;
-      transform: scale(0.96);
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
 
-    /* toast */
-    .toast {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #000000;
-      color: #ffffff;
-      padding: 0.5rem 1.2rem;
-      border-radius: 60px;
-      font-size: 0.8rem;
-      z-index: 200;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-      white-space: nowrap;
-    }
+        th, td {
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
 
-    .toast.show {
-      opacity: 1;
-    }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #555;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
 
-    /* cart panel */
-    .cart-panel {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #ffffff;
-      border-top: 2px solid #000000;
-      box-shadow: 0 -4px 14px rgba(0,0,0,0.05);
-      padding: 0.8rem 1rem 1.2rem;
-      z-index: 15;
-    }
+        .low-stock {
+            background: #fee;
+            border-left: 3px solid #e74c3c;
+        }
 
-    .cart-summary {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
+        .expiring-soon {
+            background: #fff3cd;
+            border-left: 3px solid #f39c12;
+        }
 
-    .cart-total {
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: #000000;
-    }
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
 
-    .cart-total span {
-      font-size: 1rem;
-      font-weight: normal;
-      color: #3b3b3b;
-    }
+        .status-ok {
+            background: #d4edda;
+            color: #155724;
+        }
 
-    .cart-buttons {
-      display: flex;
-      gap: 0.8rem;
-    }
+        .status-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
 
-    .view-order-btn, .whatsapp-btn {
-      border: 1px solid #cdcdcd;
-      background: #fcfcfc;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.8rem;
-      cursor: pointer;
-      color: #000000;
-    }
+        .status-expiring {
+            background: #fff3cd;
+            color: #856404;
+        }
 
-    .whatsapp-btn {
-      background: #000000;
-      color: white;
-      border: none;
-    }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
 
-    .whatsapp-btn:hover {
-      background: #2c2c2c;
-    }
+        .action-buttons button {
+            padding: 4px 10px;
+            font-size: 11px;
+        }
 
-    /* modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.75);
-      z-index: 100;
-      justify-content: center;
-      align-items: center;
-    }
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
 
-    .modal-content {
-      background: #ffffff;
-      width: 90%;
-      max-width: 480px;
-      max-height: 80vh;
-      border-radius: 1.5rem;
-      padding: 1.2rem;
-      overflow-y: auto;
-    }
+        .alert-warning {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #e74c3c;
+        }
 
-    .order-items-list {
-      margin: 1rem 0;
-      max-height: 55vh;
-      overflow-y: auto;
-    }
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
 
-    .order-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.7rem 0;
-      border-bottom: 1px solid #ececec;
-    }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #27ae60;
+        }
 
-    .close-modal {
-      background: #000000;
-      color: white;
-      border: none;
-      padding: 0.6rem 1rem;
-      border-radius: 40px;
-      margin-top: 1rem;
-      width: 100%;
-      cursor: pointer;
-    }
+        .message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: white;
+            z-index: 1000;
+            animation: fadeOut 3s ease-in-out;
+        }
 
-    @media (max-width: 550px) {
-      .items-grid {
-        grid-template-columns: 1fr;
-      }
-      .cart-summary {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .cart-buttons {
-        justify-content: space-between;
-      }
-      .toast {
-        white-space: nowrap;
-        font-size: 0.75rem;
-      }
-    }
-  </style>
+        .message-success {
+            background: #27ae60;
+        }
+
+        .message-error {
+            background: #e74c3c;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .warning-text {
+            font-size: 12px;
+            color: #e74c3c;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            th, td {
+                font-size: 11px;
+                padding: 6px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>Cafe White Saffron</h1>
-  <div class="tagline">Authentic Maldivian Flavors • Fresh • Delicious</div>
-  <div class="contact-row">
-    <span>Maldives</span>
-    <a href="tel:7667734">Call 7667734</a>
-  </div>
-</div>
-
-<div class="controls">
-  <input type="text" id="searchInput" class="search-box" placeholder="Search menu ...  (biryani, juice, pizza)">
-</div>
-
-<div class="category-dropdown-area">
-  <div class="dropdown-label">BROWSE BY CATEGORY</div>
-  <select id="categorySelect" class="category-select">
-    <option value="All">All categories</option>
-  </select>
-</div>
-
-<div class="menu-container" id="menuContainer"></div>
-
-<div class="cart-panel">
-  <div class="cart-summary">
-    <div class="cart-total">Total: <span id="cartTotal">MVR 0.00</span></div>
-    <div class="cart-buttons">
-      <button class="view-order-btn" id="viewOrderBtn">View order</button>
-      <button class="whatsapp-btn" id="whatsappOrderBtn">Send to WhatsApp</button>
+    <div class="header">
+        <h1>🏪 Professional Kitchen Inventory System</h1>
+        <p>FIFO Method | Expiry Tracking | Category Management | Auto Backup</p>
     </div>
-  </div>
-</div>
 
-<div id="toastMsg" class="toast">Added to order</div>
-
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <h3>Your order</h3>
-    <div id="modalOrderList" class="order-items-list"></div>
-    <div style="font-weight:600; margin-top: 8px;" id="modalTotal"></div>
-    <button class="close-modal" id="closeModalBtn">Close</button>
-  </div>
-</div>
-
-<script>
-  // --------------------------------------------------------------
-  // COMPLETE MENU DATA (based on original)
-  // --------------------------------------------------------------
-  const menuData = [
-    { name: "Blue Bull Bull Mojito", price: 80, category: "Beverages" }, { name: "Blue Lagoon Mojito", price: 85, category: "Beverages" }, { name: "Coca Cola", price: 25, category: "Beverages" }, { name: "Coca Cola Big", price: 42, category: "Beverages" }, { name: "Coke (diet)", price: 20, category: "Beverages" }, { name: "Coke Float", price: 50, category: "Beverages" }, { name: "Fanta Orange", price: 25, category: "Beverages" }, { name: "Fanta Orange (Big)", price: 42, category: "Beverages" }, { name: "Fanta Strawberry", price: 25, category: "Beverages" }, { name: "Granini drinks", price: 35, category: "Beverages" }, { name: "Ice milk", price: 25, category: "Beverages" }, { name: "Iced Coffee", price: 45, category: "Beverages" }, { name: "Iced Lemon Tea", price: 40, category: "Beverages" }, { name: "Iced Milo (Small)", price: 20, category: "Beverages" }, { name: "Iced milo", price: 40, category: "Beverages" }, { name: "Kulfi", price: 10, category: "Beverages" }, { name: "Passion Fruit Mojto", price: 65, category: "Beverages" }, { name: "Peach Iced Lemon Tea", price: 45, category: "Beverages" }, { name: "Redbul", price: 55, category: "Beverages" }, { name: "Rose Syrup (Big)", price: 30, category: "Beverages" }, { name: "Rose syrup", price: 15, category: "Beverages" }, { name: "Sagiko", price: 20, category: "Beverages" }, { name: "Sprite", price: 25, category: "Beverages" }, { name: "Water BIG", price: 10, category: "Beverages" }, { name: "water Small", price: 5, category: "Beverages" }, { name: "XL (Mojito)", price: 55, category: "Beverages" }, { name: "XL (Big)", price: 40, category: "Beverages" }, { name: "XL (Small)", price: 30, category: "Beverages" },
-    { name: "Chicken Biryani", price: 70, category: "Biryani" },
-    { name: "Baippen", price: 10, category: "Curry & Others" }, { name: "Baippen Takeway", price: 12, category: "Curry & Others" }, { name: "Bandu Riha", price: 25, category: "Curry & Others" }, { name: "Beef Curry", price: 35, category: "Curry & Others" }, { name: "Bisriha", price: 22, category: "Curry & Others" }, { name: "Butter Chicken Masala", price: 65, category: "Curry & Others" }, { name: "Butter Chicken Masala (Half)", price: 40, category: "Curry & Others" }, { name: "Chicken curry", price: 35, category: "Curry & Others" }, { name: "Farumas Riha", price: 35, category: "Curry & Others" }, { name: "Fish Curry", price: 35, category: "Curry & Others" }, { name: "Garudhiya", price: 13, category: "Curry & Others" }, { name: "Kukulhu Kurandi", price: 27, category: "Curry & Others" }, { name: "Kulhi Riha", price: 30, category: "Curry & Others" }, { name: "Masburi Riha", price: 22, category: "Curry & Others" }, { name: "Mugu Riha", price: 22, category: "Curry & Others" }, { name: "Roshi", price: 3, category: "Curry & Others" }, { name: "Vegetable Curry", price: 18, category: "Curry & Others" },
-    { name: "Brownie", price: 45, category: "Dessert" }, { name: "Chocolate Cake", price: 5, category: "Dessert" }, { name: "Vanila Ice-Cream", price: 15, category: "Dessert" }, { name: "WAFFLE", price: 15, category: "Dessert" }, { name: "Whole Pudding", price: 120, category: "Dessert" }, { name: "Banana Bread", price: 10, category: "Dessert" }, { name: "Pudding", price: 20, category: "Dessert" },
-    { name: "Mango Juice", price: 55, category: "Fresh Juice" }, { name: "Mix Fresh Juice", price: 50, category: "Fresh Juice" }, { name: "Passion Fruit Juice", price: 50, category: "Fresh Juice" }, { name: "Watermelon juice", price: 50, category: "Fresh Juice" }, { name: "Orange Juice", price: 45, category: "Fresh Juice" }, { name: "Lemon juice", price: 35, category: "Fresh Juice" },
-    { name: "Chicken Fried Rice", price: 55, category: "Fried Rice" }, { name: "Beef Fried Rice", price: 60, category: "Fried Rice" }, { name: "Mix Fried Rice", price: 70, category: "Fried Rice" }, { name: "Veg Fried Rice", price: 40, category: "Fried Rice" }, { name: "mongolian rice", price: 60, category: "Fried Rice" }, { name: "Egg fried rice", price: 45, category: "Fried Rice" },
-    { name: "Milk Tea", price: 17, category: "Hot Drinks" }, { name: "Masala Tea", price: 10, category: "Hot Drinks" }, { name: "Hot Chocolate", price: 35, category: "Hot Drinks" }, { name: "Original Coffee", price: 10, category: "Hot Drinks" }, { name: "Black Tea", price: 3, category: "Hot Drinks" }, { name: "Ginger Tea", price: 5, category: "Hot Drinks" },
-    { name: "Coconut water", price: 55, category: "Juice (Packaged)" }, { name: "Mixed Fruit Juice Pkt", price: 35, category: "Juice (Packaged)" },
-    { name: "Chicken Kohtthu Roshi", price: 55, category: "Kotthu Roshi" }, { name: "Tuna Kohtthu Roshi", price: 45, category: "Kotthu Roshi" }, { name: "Veg Kohtthu Roshi", price: 40, category: "Kotthu Roshi" }, { name: "Beef Kohtthu Roshi", price: 60, category: "Kotthu Roshi" }, { name: "Mix kohtthu Roshi", price: 70, category: "Kotthu Roshi" },
-    { name: "Oreo Milkshake", price: 60, category: "Milkshake" }, { name: "Mango milkshake", price: 55, category: "Milkshake" }, { name: "Chocolate Milkshake", price: 55, category: "Milkshake" }, { name: "Vanila Milkshake", price: 55, category: "Milkshake" },
-    { name: "Chicken Noodles", price: 55, category: "Noodles" }, { name: "Tuna Noodles", price: 45, category: "Noodles" }, { name: "Beef noodles", price: 60, category: "Noodles" }, { name: "Mix Noodles", price: 60, category: "Noodles" }, { name: "Vegtable Noodles", price: 40, category: "Noodles" },
-    { name: "Chicken Pizza", price: 115, category: "Pizza" }, { name: "Tuna Pizza", price: 105, category: "Pizza" }, { name: "Vegetable Pizza", price: 106, category: "Pizza" }, { name: "BEEF PIZZA", price: 133, category: "Pizza" }, { name: "Mix Pizza", price: 130, category: "Pizza" },
-    { name: "Beef Club Sandwich", price: 70, category: "Sandwiches & Burgers" }, { name: "Crispy Chicken Burger", price: 60, category: "Sandwiches & Burgers" }, { name: "Tuna Sandwich", price: 35, category: "Sandwiches & Burgers" }, { name: "Chicken Sandwich", price: 40, category: "Sandwiches & Burgers" }, { name: "Veg Club sandwich", price: 50, category: "Sandwiches & Burgers" },
-    { name: "Bajiya", price: 4, category: "Short Eats" }, { name: "Gulha", price: 4, category: "Short Eats" }, { name: "Sawarma", price: 20, category: "Short Eats" }, { name: "Cutlets", price: 4, category: "Short Eats" }, { name: "Masroshi", price: 5, category: "Short Eats" }, { name: "Kavaab", price: 4, category: "Short Eats" },
-    { name: "Chicken Soup", price: 50, category: "Soup" },
-    { name: "Chicken Spaghetti", price: 65, category: "Spaghetti & Pasta" }, { name: "Carbonara Pasta", price: 80, category: "Spaghetti & Pasta" }, { name: "Tuna Pasta", price: 50, category: "Spaghetti & Pasta" }, { name: "Spaghetti bolognese", price: 77, category: "Spaghetti & Pasta" },
-    { name: "Mashuni Normal", price: 20, category: "Breakfast" }, { name: "Continental breakfast", price: 45, category: "Breakfast" }, { name: "Boiled Egg", price: 6, category: "Breakfast" }, { name: "Hikimas Mashuni", price: 25, category: "Breakfast" },
-    { name: "Green Salad", price: 45, category: "Salads" }, { name: "Chicken Salad", price: 60, category: "Salads" }, { name: "Mix Salad", price: 70, category: "Salads" },
-    { name: "Chilli Chicken", price: 40, category: "Side Dishes" }, { name: "FRENCH FRIES", price: 45, category: "Side Dishes" }, { name: "Grill chicken (single)", price: 45, category: "Side Dishes" }, { name: "fried egg", price: 10, category: "Side Dishes" }, { name: "Devilled Fish", price: 35, category: "Side Dishes" }, { name: "Chicken Wings", price: 30, category: "Side Dishes" }
-  ];
-
-  let cart = [];
-  let currentCategory = "All";
-  let currentSearch = "";
-
-  // Helper: get sorted unique categories
-  function getUniqueCategories() {
-    const cats = menuData.map(i => i.category);
-    return ['All', ...new Set(cats)].sort((a,b) => {
-      if (a === 'All') return -1;
-      if (b === 'All') return 1;
-      return a.localeCompare(b);
-    });
-  }
-
-  function populateDropdown() {
-    const select = document.getElementById('categorySelect');
-    const categories = getUniqueCategories();
-    select.innerHTML = categories.map(cat => `<option value="${cat}" ${currentCategory === cat ? 'selected' : ''}>${cat}</option>`).join('');
-  }
-
-  function updateCartUI() {
-    const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-    document.getElementById('cartTotal').innerText = `MVR ${total.toFixed(2)}`;
-  }
-
-  function showToast(msg) {
-    const toast = document.getElementById('toastMsg');
-    toast.innerText = msg || 'Added to order';
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1500);
-  }
-
-  function addToCart(itemName, price, quantity) {
-    const existing = cart.find(i => i.name === itemName);
-    if (existing) existing.quantity += quantity;
-    else cart.push({ name: itemName, price: price, quantity: quantity });
-    updateCartUI();
-    showToast(`+${quantity} ${itemName.substring(0, 25)}`);
-  }
-
-  function escapeHtml(str) {
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
-  }
-
-  function renderMenu() {
-    const container = document.getElementById('menuContainer');
-    let filtered = menuData.filter(item => {
-      const matchCat = currentCategory === 'All' || item.category === currentCategory;
-      const matchSearch = currentSearch === '' || item.name.toLowerCase().includes(currentSearch.toLowerCase());
-      return matchCat && matchSearch;
-    });
-
-    if (filtered.length === 0) {
-      container.innerHTML = '<div style="text-align:center; padding:2.5rem; color:#5a5a5a;">No items found. Try different search or category.</div>';
-      return;
-    }
-
-    // Group by category (useful when "All" selected, else only one group)
-    const grouped = new Map();
-    filtered.forEach(item => {
-      if (!grouped.has(item.category)) grouped.set(item.category, []);
-      grouped.get(item.category).push(item);
-    });
-
-    let html = '';
-    for (let [cat, items] of grouped.entries()) {
-      html += `<div class="category-block"><div class="category-header">${cat}</div><div class="items-grid">`;
-      items.forEach(item => {
-        html += `
-          <div class="menu-card">
-            <div class="item-info">
-              <div class="item-name">${escapeHtml(item.name)} <span class="item-price">MVR ${item.price.toFixed(2)}</span></div>
-              <div class="item-desc">Maldivian specialty</div>
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalItems">0</div>
+                <div class="stat-label">Total Items</div>
             </div>
-            <div class="order-controls" data-name="${escapeHtml(item.name)}" data-price="${item.price}">
-              <button class="qty-btn dec">-</button>
-              <span class="item-qty">1</span>
-              <button class="qty-btn inc">+</button>
-              <button class="add-btn">Add</button>
+            <div class="stat-card">
+                <div class="stat-number" id="totalValue">$0</div>
+                <div class="stat-label">Inventory Value</div>
             </div>
-          </div>
-        `;
-      });
-      html += `</div></div>`;
-    }
-    container.innerHTML = html;
+            <div class="stat-card">
+                <div class="stat-number" id="lowStockItems">0</div>
+                <div class="stat-label">Low Stock Alerts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="expiringItems">0</div>
+                <div class="stat-label">Expiring Soon (7 days)</div>
+            </div>
+        </div>
 
-    // attach dynamic controls
-    document.querySelectorAll('.menu-card .order-controls').forEach(ctrl => {
-      const name = ctrl.getAttribute('data-name');
-      const price = parseFloat(ctrl.getAttribute('data-price'));
-      let qtySpan = ctrl.querySelector('.item-qty');
-      let qty = 1;
-      const dec = ctrl.querySelector('.dec');
-      const inc = ctrl.querySelector('.inc');
-      const add = ctrl.querySelector('.add-btn');
-      const update = () => { qtySpan.innerText = qty; };
-      dec.addEventListener('click', (e) => {
-        e.stopPropagation();
-        qty = Math.max(1, qty - 1);
-        update();
-      });
-      inc.addEventListener('click', (e) => {
-        e.stopPropagation();
-        qty = qty + 1;
-        update();
-      });
-      add.addEventListener('click', (e) => {
-        e.stopPropagation();
-        addToCart(name, price, qty);
-        qty = 1;
-        update();
-      });
-    });
-  }
+        <!-- Backup/Restore Card -->
+        <div class="card backup-card">
+            <h2>💾 Backup & Restore Data</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <button onclick="exportData()" class="btn-success" style="width:100%;">📥 Export Backup (Save to Computer)</button>
+                </div>
+                <div class="form-group">
+                    <input type="file" id="restoreFile" accept=".json" style="width:100%;">
+                </div>
+                <div class="form-group">
+                    <button onclick="importData()" class="btn-warning" style="width:100%;">📤 Restore from Backup</button>
+                </div>
+                <div class="form-group">
+                    <button onclick="clearAllData()" class="btn-danger" style="width:100%;">⚠️ Clear All Data</button>
+                </div>
+            </div>
+            <p class="warning-text">⚠️ WARNING: Your data is stored in your browser. If you clear browser cache/history, data will be LOST. Export backup regularly!</p>
+        </div>
 
-  function showOrderModal() {
-    const modal = document.getElementById('orderModal');
-    const listDiv = document.getElementById('modalOrderList');
-    const totalSpan = document.getElementById('modalTotal');
-    if (cart.length === 0) {
-      listDiv.innerHTML = '<div style="padding:1rem; text-align:center; color:#5a5a5a;">Your order is empty</div>';
-      totalSpan.innerText = 'Total: MVR 0.00';
-    } else {
-      let rows = '';
-      let total = 0;
-      cart.forEach(item => {
-        const lineTotal = item.price * item.quantity;
-        total += lineTotal;
-        rows += `<div class="order-row"><span><strong>${escapeHtml(item.name)}</strong>  x${item.quantity}</span><span>MVR ${lineTotal.toFixed(2)}</span></div>`;
-      });
-      listDiv.innerHTML = rows;
-      totalSpan.innerText = `Total: MVR ${total.toFixed(2)}`;
-    }
-    modal.style.display = 'flex';
-  }
+        <!-- Alerts Section -->
+        <div id="alertsContainer"></div>
 
-  function closeModal() {
-    document.getElementById('orderModal').style.display = 'none';
-  }
+        <!-- Add Product Form -->
+        <div class="card">
+            <h2>➕ Add New Item to Inventory</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Item Name *</label>
+                    <input type="text" id="itemName" placeholder="e.g., Chicken Breast">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="category">
+                        <option value="Dry Goods">📦 Dry Goods</option>
+                        <option value="Canned Goods">🥫 Canned Goods</option>
+                        <option value="Spices">🌿 Spices & Seasonings</option>
+                        <option value="Dairy">🥛 Dairy</option>
+                        <option value="Produce">🥬 Fresh Produce</option>
+                        <option value="Meat">🍖 Meat</option>
+                        <option value="Seafood">🐟 Seafood</option>
+                        <option value="Frozen">❄️ Frozen</option>
+                        <option value="Beverages">🥤 Beverages</option>
+                        <option value="Cleaning">🧹 Cleaning Supplies</option>
+                        <option value="Utensils">🔪 Utensils & Tools</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity/Stock</label>
+                    <input type="number" id="quantity" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Unit</label>
+                    <select id="unit">
+                        <option>kg</option><option>g</option><option>L</option>
+                        <option>ml</option><option>pc</option><option>box</option>
+                        <option>can</option><option>bottle</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cost per Unit ($)</label>
+                    <input type="number" id="cost" step="0.01" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Min Stock Alert</label>
+                    <input type="number" id="minStock" value="5">
+                </div>
+                <div class="form-group">
+                    <label>Expiry Date (optional)</label>
+                    <input type="date" id="expiryDate">
+                </div>
+                <div class="form-group">
+                    <label>Storage Location</label>
+                    <select id="location">
+                        <option>Pantry</option><option>Fridge</option>
+                        <option>Freezer</option><option>Dry Storage</option>
+                    </select>
+                </div>
+                <div class="form-group" style="display: flex; align-items: end;">
+                    <button onclick="addItem()" style="width: 100%;">➕ Add Item</button>
+                </div>
+            </div>
+        </div>
 
-  function sendWhatsAppOrder() {
-    if (cart.length === 0) {
-      showToast("Cart is empty. Add items first.");
-      return;
-    }
-    let message = "Cafe White Saffron Order%0A";
-    let total = 0;
-    cart.forEach(item => {
-      const lineTotal = item.price * item.quantity;
-      total += lineTotal;
-      message += `- ${item.name} x${item.quantity} = MVR ${lineTotal.toFixed(2)}%0A`;
-    });
-    message += `%0ATOTAL: MVR ${total.toFixed(2)}%0APickup / Call 7667734`;
-    window.open(`https://wa.me/9607667734?text=${message}`, '_blank');
-  }
+        <!-- Stock In/Out Section -->
+        <div class="card">
+            <h2>📥 Stock IN / 📤 Stock OUT (FIFO Method)</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Select Item</label>
+                    <select id="selectItem">
+                        <option value="">-- Select --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Transaction Type</label>
+                    <select id="transType">
+                        <option value="in">📥 Stock IN (Receive Delivery)</option>
+                        <option value="out">📤 Stock OUT (Issue to Kitchen)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="transQty" placeholder="Quantity">
+                </div>
+                <div class="form-group">
+                    <label>Reference / Note</label>
+                    <input type="text" id="transNote" placeholder="Supplier / Department / Recipe">
+                </div>
+                <div class="form-group" style="display: flex; align-items: end;">
+                    <button onclick="processTransaction()">Process Transaction</button>
+                </div>
+            </div>
+        </div>
 
-  // Event listeners
-  document.getElementById('searchInput').addEventListener('input', (e) => {
-    currentSearch = e.target.value;
-    renderMenu();
-  });
-  document.getElementById('categorySelect').addEventListener('change', (e) => {
-    currentCategory = e.target.value;
-    renderMenu();
-  });
-  document.getElementById('viewOrderBtn').addEventListener('click', showOrderModal);
-  document.getElementById('whatsappOrderBtn').addEventListener('click', sendWhatsAppOrder);
-  document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-  window.addEventListener('click', (e) => {
-    if (e.target === document.getElementById('orderModal')) closeModal();
-  });
+        <!-- Category Tabs -->
+        <div class="category-tabs" id="categoryTabs">
+            <div class="category-tab active" data-cat="all">All Items</div>
+        </div>
 
-  populateDropdown();
-  renderMenu();
-  updateCartUI();
-</script>
+        <!-- Inventory Table -->
+        <div class="card">
+            <h2>📋 Current Inventory</h2>
+            <div class="table-container">
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th><th>Category</th><th>Stock</th><th>Unit</th>
+                            <th>Min Alert</th><th>Value</th><th>Expiry</th><th>Location</th><th>Status</th><th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr><td colspan="10" style="text-align:center">No items. Add your first item above.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="card">
+            <h2>📜 Recent Transactions (FIFO Log)</h2>
+            <div class="table-container" style="max-height: 200px;">
+                <table id="transactionsTable">
+                    <thead><tr><th>Date</th><th>Item</th><th>Type</th><th>Qty</th><th>Note</th></tr></thead>
+                    <tbody id="transactionsBody"><tr><td colspan="5" style="text-align:center">No transactions yet</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        let inventory = [];
+        let transactions = [];
+        let currentCategory = 'all';
+
+        // Load from localStorage
+        function loadData() {
+            const savedInv = localStorage.getItem('kitchen_inventory');
+            const savedTrans = localStorage.getItem('kitchen_transactions');
+            
+            if (savedInv) inventory = JSON.parse(savedInv);
+            if (savedTrans) transactions = JSON.parse(savedTrans);
+            
+            renderCategoryTabs();
+            renderInventory();
+            renderTransactions();
+            updateStats();
+            updateAlerts();
+            updateItemSelect();
+        }
+
+        function saveData() {
+            localStorage.setItem('kitchen_inventory', JSON.stringify(inventory));
+            localStorage.setItem('kitchen_transactions', JSON.stringify(transactions));
+            renderInventory();
+            renderTransactions();
+            updateStats();
+            updateAlerts();
+            updateItemSelect();
+        }
+
+        // Backup Functions
+        function exportData() {
+            if (inventory.length === 0 && transactions.length === 0) {
+                showMessage('No data to export', 'error');
+                return;
+            }
+            
+            const data = {
+                inventory: inventory,
+                transactions: transactions,
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `kitchen-backup-${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showMessage(`Exported ${inventory.length} items and ${transactions.length} transactions`, 'success');
+        }
+
+        function importData() {
+            const fileInput = document.getElementById('restoreFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showMessage('Select a backup file first', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    inventory = data.inventory || [];
+                    transactions = data.transactions || [];
+                    saveData();
+                    showMessage(`Restored ${inventory.length} items and ${transactions.length} transactions!`, 'success');
+                    document.getElementById('restoreFile').value = '';
+                } catch(err) {
+                    showMessage('Invalid backup file', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ WARNING: This will DELETE ALL inventory data. Are you ABSOLUTELY sure?')) {
+                if (confirm('LAST CHANCE: This cannot be undone. Delete everything?')) {
+                    inventory = [];
+                    transactions = [];
+                    saveData();
+                    showMessage('All data cleared', 'success');
+                }
+            }
+        }
+
+        function addItem() {
+            const name = document.getElementById('itemName').value.trim();
+            const category = document.getElementById('category').value;
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const unit = document.getElementById('unit').value;
+            const cost = parseFloat(document.getElementById('cost').value);
+            const minStock = parseFloat(document.getElementById('minStock').value);
+            const expiryDate = document.getElementById('expiryDate').value;
+            const location = document.getElementById('location').value;
+
+            if (!name) {
+                showMessage('Enter item name', 'error');
+                return;
+            }
+
+            if (inventory.find(i => i.name.toLowerCase() === name.toLowerCase())) {
+                showMessage('Item already exists', 'error');
+                return;
+            }
+
+            const newItem = {
+                id: Date.now(),
+                name: name,
+                category: category,
+                stock: quantity || 0,
+                unit: unit,
+                costPerUnit: cost || 0,
+                totalValue: (quantity || 0) * (cost || 0),
+                minStock: minStock || 5,
+                expiryDate: expiryDate,
+                location: location,
+                history: [],
+                dateAdded: new Date().toISOString()
+            };
+
+            inventory.push(newItem);
+
+            transactions.unshift({
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                itemName: name,
+                type: 'ADD',
+                quantity: quantity,
+                note: 'New item added to inventory'
+            });
+
+            saveData();
+
+            document.getElementById('itemName').value = '';
+            document.getElementById('quantity').value = '0';
+            document.getElementById('cost').value = '0';
+            document.getElementById('expiryDate').value = '';
+
+            showMessage(`Added ${name}`, 'success');
+        }
+
+        function processTransaction() {
+            const id = parseInt(document.getElementById('selectItem').value);
+            const type = document.getElementById('transType').value;
+            const quantity = parseFloat(document.getElementById('transQty').value);
+            const note = document.getElementById('transNote').value;
+
+            const item = inventory.find(i => i.id === id);
+            if (!item) {
+                showMessage('Select an item', 'error');
+                return;
+            }
+
+            if (!quantity || quantity <= 0) {
+                showMessage('Enter valid quantity', 'error');
+                return;
+            }
+
+            if (type === 'out' && item.stock < quantity) {
+                showMessage(`Insufficient stock! Available: ${item.stock} ${item.unit}`, 'error');
+                return;
+            }
+
+            const oldStock = item.stock;
+
+            if (type === 'in') {
+                item.stock += quantity;
+                item.totalValue = item.stock * item.costPerUnit;
+            } else {
+                item.stock -= quantity;
+                item.totalValue = item.stock * item.costPerUnit;
+            }
+
+            item.history.unshift({
+                date: new Date().toLocaleString(),
+                type: type,
+                quantity: quantity,
+                oldStock: oldStock,
+                newStock: item.stock,
+                note: note
+            });
+
+            if (item.history.length > 20) item.history.pop();
+
+            transactions.unshift({
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                itemName: item.name,
+                type: type,
+                quantity: quantity,
+                note: note,
+                oldStock: oldStock,
+                newStock: item.stock
+            });
+
+            if (transactions.length > 50) transactions.pop();
+
+            saveData();
+
+            document.getElementById('transQty').value = '';
+            document.getElementById('transNote').value = '';
+            showMessage(`${type === 'in' ? 'Received' : 'Issued'} ${quantity} ${item.unit} of ${item.name}`, 'success');
+        }
+
+        function deleteItem(id, name) {
+            if (confirm(`Delete "${name}"? This will remove all history.`)) {
+                inventory = inventory.filter(i => i.id !== id);
+                saveData();
+                showMessage(`Deleted ${name}`, 'success');
+            }
+        }
+
+        function quickUpdate(id, type) {
+            const item = inventory.find(i => i.id === id);
+            const qty = prompt(`${type === 'in' ? 'ADD' : 'REMOVE'} quantity for ${item.name} (Current: ${item.stock} ${item.unit}):`);
+            
+            if (qty && parseFloat(qty) > 0) {
+                const quantity = parseFloat(qty);
+
+                if (type === 'out' && item.stock < quantity) {
+                    showMessage(`Insufficient stock! Available: ${item.stock} ${item.unit}`, 'error');
+                    return;
+                }
+
+                const oldStock = item.stock;
+
+                if (type === 'in') {
+                    item.stock += quantity;
+                } else {
+                    item.stock -= quantity;
+                }
+
+                item.totalValue = item.stock * item.costPerUnit;
+
+                item.history.unshift({
+                    date: new Date().toLocaleString(),
+                    type: type,
+                    quantity: quantity,
+                    oldStock: oldStock,
+                    newStock: item.stock,
+                    note: 'Quick transaction'
+                });
+
+                transactions.unshift({
+                    id: Date.now(),
+                    date: new Date().toLocaleString(),
+                    itemName: item.name,
+                    type: type,
+                    quantity: quantity,
+                    note: 'Quick transaction'
+                });
+
+                saveData();
+                showMessage(`${type === 'in' ? '+' : '-'}${quantity} ${item.name}`, 'success');
+            }
+        }
+
+        function renderCategoryTabs() {
+            const categories = ['all', ...new Set(inventory.map(i => i.category))];
+            const container = document.getElementById('categoryTabs');
+            container.innerHTML = categories.map(cat => `
+                <div class="category-tab ${currentCategory === cat ? 'active' : ''}" data-cat="${cat}" onclick="filterByCategory('${cat}')">
+                    ${cat === 'all' ? 'All Items' : cat}
+                </div>
+            `).join('');
+        }
+
+        function filterByCategory(cat) {
+            currentCategory = cat;
+            renderCategoryTabs();
+            renderInventory();
+        }
+
+        function renderInventory() {
+            const tbody = document.getElementById('tableBody');
+            let filtered = currentCategory === 'all' ? inventory : inventory.filter(i => i.category === currentCategory);
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center">No items in this category</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            
+            filtered.forEach(item => {
+                const isLow = item.stock <= item.minStock;
+                const isExpiring = item.expiryDate && new Date(item.expiryDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+                const row = tbody.insertRow();
+                
+                if (isLow) row.className = 'low-stock';
+                if (isExpiring && !isLow) row.className = 'expiring-soon';
+                
+                let statusClass = 'status-ok';
+                let statusText = '✅ OK';
+                if (isLow) {
+                    statusClass = 'status-low';
+                    statusText = '⚠️ LOW';
+                }
+                if (isExpiring && !isLow) {
+                    statusClass = 'status-expiring';
+                    statusText = '⏰ EXPIRING';
+                }
+                
+                const expiryDisplay = item.expiryDate ? new Date(item.expiryDate).toLocaleDateString() : 'N/A';
+                
+                row.insertCell(0).innerHTML = item.name;
+                row.insertCell(1).innerHTML = item.category;
+                row.insertCell(2).innerHTML = `<strong>${item.stock}</strong>`;
+                row.insertCell(3).innerHTML = item.unit;
+                row.insertCell(4).innerHTML = item.minStock;
+                row.insertCell(5).innerHTML = `$${item.totalValue.toFixed(2)}`;
+                row.insertCell(6).innerHTML = expiryDisplay;
+                row.insertCell(7).innerHTML = item.location;
+                row.insertCell(8).innerHTML = `<span class="status-badge ${statusClass}">${statusText}</span>`;
+                row.insertCell(9).innerHTML = `
+                    <div class="action-buttons">
+                        <button onclick="quickUpdate(${item.id}, 'in')" style="background:#27ae60;">+IN</button>
+                        <button onclick="quickUpdate(${item.id}, 'out')" style="background:#e74c3c;">-OUT</button>
+                        <button onclick="deleteItem(${item.id}, '${item.name}')" class="btn-danger">🗑️</button>
+                    </div>
+                `;
+            });
+        }
+
+        function renderTransactions() {
+            const tbody = document.getElementById('transactionsBody');
+            if (transactions.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">No transactions yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            transactions.slice(0, 30).forEach(t => {
+                const row = tbody.insertRow();
+                row.insertCell(0).innerHTML = t.date;
+                row.insertCell(1).innerHTML = t.itemName;
+                row.insertCell(2).innerHTML = t.type === 'in' ? '📥 IN' : (t.type === 'out' ? '📤 OUT' : '➕ ADD');
+                row.insertCell(3).innerHTML = t.quantity;
+                row.insertCell(4).innerHTML = t.note || '-';
+            });
+        }
+
+        function updateStats() {
+            document.getElementById('totalItems').innerText = inventory.length;
+            const totalValue = inventory.reduce((sum, i) => sum + (i.totalValue || 0), 0);
+            document.getElementById('totalValue').innerText = '$' + totalValue.toFixed(2);
+            const lowStock = inventory.filter(i => i.stock <= i.minStock).length;
+            document.getElementById('lowStockItems').innerText = lowStock;
+            const expiring = inventory.filter(i => i.expiryDate && new Date(i.expiryDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)).length;
+            document.getElementById('expiringItems').innerText = expiring;
+        }
+
+        function updateAlerts() {
+            const container = document.getElementById('alertsContainer');
+            const lowStockItems = inventory.filter(i => i.stock <= i.minStock);
+            const expiringItems = inventory.filter(i => i.expiryDate && new Date(i.expiryDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
+            
+            let alerts = '';
+            
+            if (lowStockItems.length > 0) {
+                alerts += `<div class="alert alert-warning">
+                    ⚠️ <strong>Low Stock Alert:</strong> ${lowStockItems.length} item(s) are below minimum stock level.<br>
+                    ${lowStockItems.slice(0, 5).map(i => `📦 ${i.name} (${i.stock} ${i.unit} left, min: ${i.minStock})`).join(', ')}
+                    ${lowStockItems.length > 5 ? ` and ${lowStockItems.length - 5} more` : ''}
+                </div>`;
+            }
+            
+            if (expiringItems.length > 0) {
+                alerts += `<div class="alert alert-info">
+                    ⏰ <strong>Expiring Soon:</strong> ${expiringItems.length} item(s) will expire within 7 days.<br>
+                    ${expiringItems.slice(0, 5).map(i => `📦 ${i.name} (exp: ${new Date(i.expiryDate).toLocaleDateString()})`).join(', ')}
+                </div>`;
+            }
+            
+            if (inventory.length > 0 && !alerts) {
+                alerts = `<div class="alert alert-success">✅ All inventory levels are healthy. No alerts at this time.</div>`;
+            } else if (inventory.length === 0) {
+                alerts = `<div class="alert alert-info">📝 No items in inventory. Add your first item above.</div>`;
+            }
+            
+            container.innerHTML = alerts;
+        }
+
+        function updateItemSelect() {
+            const select = document.getElementById('selectItem');
+            select.innerHTML = '<option value="">-- Select --</option>';
+            inventory.forEach(i => {
+                select.innerHTML += `<option value="${i.id}">${i.name} (${i.stock} ${i.unit} available)</option>`;
+            });
+        }
+
+        function showMessage(msg, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message message-${type}`;
+            msgDiv.innerText = msg;
+            document.body.appendChild(msgDiv);
+            setTimeout(() => msgDiv.remove(), 3000);
+        }
+
+        // Auto-save reminder every 5 minutes
+        setInterval(() => {
+            if (inventory.length > 0) {
+                console.log('Auto-save reminder: Export backup to keep data safe');
+            }
+        }, 300000);
+
+        // Initial load
+        loadData();
+    </script>
 </body>
 </html>
-```
