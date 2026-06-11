@@ -478,8 +478,7 @@
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <tr><td colspan="10" style="text-align:center">No items. Add your first item above.</td></tr>
-                    </tbody>
+                        <tr><td colspan="10" style="text-align:center">No items. Add your first item above.</div><table></tbody>
                 </table>
             </div>
         </div>
@@ -902,13 +901,6 @@
             document.body.appendChild(msgDiv);
             setTimeout(() => msgDiv.remove(), 3000);
         }
-
-        // Auto-save reminder every 5 minutes
-        setInterval(() => {
-            if (inventory.length > 0) {
-                console.log('Auto-save reminder: Export backup to keep data safe');
-            }
-        }, 300000);
 
         // Initial load
         loadData();
