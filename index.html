@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>White Saffron | Premium Inventory System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="logo">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        <span>White Saffron</span>
+    </div>
+    <ul class="menu">
+        <li class="active" data-section="dashboard"><i class="fa-solid fa-chart-line"></i><span> Dashboard</span></li>
+        <li data-section="products"><i class="fa-solid fa-box"></i><span> Products</span></li>
+        <li data-section="stockin"><i class="fa-solid fa-arrow-up"></i><span> Stock IN</span></li>
+        <li data-section="stockout"><i class="fa-solid fa-arrow-down"></i><span> Stock OUT</span></li>
+        <li data-section="adjustment"><i class="fa-solid fa-sliders"></i><span> Adjustment</span></li>
+        <li data-section="history"><i class="fa-solid fa-clock-rotate-left"></i><span> History</span></li>
+        <li data-section="importexport"><i class="fa-solid fa-file-csv"></i><span> Import/Export</span></li>
+    </ul>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    <div class="topbar">
+        <div>
+            <h1>White Saffron Inventory</h1>
+            <p id="lastUpdated">Last Updated: --</p>
+        </div>
+        <div class="date-box"><span id="currentDate"></span></div>
+    </div>
+
+    <div class="action-bar">
+        <button class="btn green" id="openAddModalBtn"><i class="fa-solid fa-plus"></i> Add Product</button>
+        <button class="btn blue" id="globalEditBtn"><i class="fa-solid fa-pen"></i> Edit Product</button>
+        <button class="btn red" id="globalDeleteBtn"><i class="fa-solid fa-trash"></i> Delete Product</button>
+        <button class="btn green" id="navStockInBtn"><i class="fa-solid fa-arrow-up"></i> Stock IN</button>
+        <button class="btn orange" id="navStockOutBtn"><i class="fa-solid fa-arrow-down"></i> Stock OUT</button>
+        <button class="btn purple" id="navAdjustBtn"><i class="fa-solid fa-sliders"></i> Adjustment</button>
+        <button class="btn dark" id="importTriggerBtn"><i class="fa-solid fa-file-import"></i> Import</button>
+        <button class="btn dark" id="exportCsvMainBtn"><i class="fa-solid fa-file-export"></i> Export</button>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by name, SKU or category...">
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="section active-section">
+        <div class="cards">
+            <div class="card products-card"><h3>Total Products</h3><h2 id="totalProducts">0</h2></div>
+            <div class="card stock-card"><h3>Total Stock</h3><h2 id="totalStock">0</h2></div>
+            <div class="card low-card"><h3>Low Stock Items</h3><h2 id="lowStock">0</h2></div>
+            <div class="card value-card"><h3>Inventory Value</h3><h2 id="inventoryValue">$0.00</h2></div>
+        </div>
+        <div class="warning-box" id="lowStockWarning">✅ No low stock alerts</div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="products" class="section">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Name</th><th>SKU</th><th>Category</th><th>Stock</th><th>Rate</th><th>Unit</th><th>Min</th><th>Value</th><th>Updated</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="productTable"></tbody>
+            </table>
+            <div id="pagination" class="pagination"></div>
+        </div>
+    </div>
+
+    <!-- STOCK IN -->
+    <div id="stockin" class="section">
+        <div class="form-card">
+            <h2><i class="fa-solid fa-arrow-up"></i> Stock IN</h2>
+            <select id="stockInProduct"></select>
+            <input type="number" id="stockInQty" placeholder="Quantity">
+            <input type="text" id="stockInNote" placeholder="Reference / Note">
+            <input type="date" id="stockInDate">
+            <button class="btn green" id="stockInExecute">Add Stock</button>
+            <div id="stockInMsg" class="toast-message" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- STOCK OUT -->
+    <div id="stockout" class="section">
+        <div class="form-card">
+            <h2><i class="fa-solid fa-arrow-down"></i> Stock OUT</h2>
+            <select id="stockOutProduct"></select>
+            <input type="number" id="stockOutQty" placeholder="Quantity">
+            <input type="text" id="stockOutNote" placeholder="Reference / Note">
+            <input type="date" id="stockOutDate">
+            <button class="btn orange" id="stockOutExecute">Remove Stock</button>
+            <div id="stockOutMsg" class="toast-message" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- ADJUSTMENT -->
+    <div id="adjustment" class="section">
+        <div class="form-card">
+            <h2><i class="fa-solid fa-sliders"></i> Stock Adjustment</h2>
+            <select id="adjustProduct"></select>
+            <div id="adjustPreview" style="background: #f0fdf4; padding: 10px; border-radius: 8px; margin: 10px 0; border-left: 3px solid #16a34a; display: none;">
+                <small><i class="fa-solid fa-chart-line"></i> Change preview: </small>
+                <strong id="adjustChangePreview">0</strong>
+            </div>
+            <input type="number" id="adjustQty" placeholder="New Quantity">
+            <input type="text" id="adjustReason" placeholder="Reason for adjustment">
+            <input type="date" id="adjustDate">
+            <button class="btn purple" id="adjustExecute">Set Stock</button>
+            <div id="adjustMsg" class="toast-message" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="history" class="section">
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Date</th><th>Product</th><th>SKU</th><th>Type</th><th>Qty</th><th>Prev</th><th>New</th><th>Note</th></tr></thead>
+                <tbody id="historyTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- IMPORT/EXPORT -->
+    <div id="importexport" class="section">
+        <div class="form-card">
+            <h2><i class="fa-solid fa-file-csv"></i> CSV Manager</h2>
+            <input type="file" id="csvFileInput" accept=".csv">
+            <button class="btn dark" id="importCsvAction"><i class="fa-solid fa-upload"></i> Import CSV</button>
+            <button class="btn blue" id="exportCsvAction"><i class="fa-solid fa-download"></i> Export CSV</button>
+            <button class="btn green" id="sampleCsvAction"><i class="fa-solid fa-download"></i> Sample CSV</button>
+            <div id="importMsg" class="toast-message" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="modalCloseBtn">&times;</span>
+        <h2 id="modalTitle">Add Product</h2>
+        <input type="hidden" id="editProductId">
+        
+        <div id="skuContainer" style="display: none;">
+            <label><i class="fa-solid fa-barcode"></i> SKU (Manual)</label>
+            <input type="text" id="productSKU" placeholder="Enter SKU manually">
+            <small style="display: block; margin-bottom: 10px; color: #64748b;">Enter a unique SKU for this product</small>
+        </div>
+        
+        <div id="autoSkuPreview" style="background: #f0fdf4; padding: 10px; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid #16a34a;">
+            <small><i class="fa-solid fa-magic"></i> Auto-generated SKU: </small>
+            <strong id="previewSku" style="color: #166534;">Enter category and name</strong>
+        </div>
+        
+        <label><i class="fa-solid fa-tag"></i> Product Name *</label>
+        <input type="text" id="productName" placeholder="Enter product name">
+        
+        <label><i class="fa-solid fa-folder"></i> Category 
+            <span id="categoryHint" style="font-size: 11px; color: #16a34a; margin-left: 8px;"></span>
+        </label>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="productCategory" placeholder="e.g., Vegetables, Fruits, Disposables" style="flex: 1;">
+            <button type="button" id="detectCategoryBtn" class="btn dark" style="padding: 0 15px; font-size: 12px;">
+                <i class="fa-solid fa-brain"></i> Auto Detect
+            </button>
+        </div>
+        
+        <label><i class="fa-solid fa-cubes"></i> Unit</label>
+        <select id="unit">
+            <option value="gram">Gram (g)</option>
+            <option value="kg">Kilogram (kg)</option>
+            <option value="L">Liter (L)</option>
+            <option value="ML">Milliliter (ML)</option>
+            <option value="Cse">Case (Cse)</option>
+            <option value="box">Box</option>
+            <option value="pcs" selected>Pieces (pcs)</option>
+            <option value="pkt">Packet (pkt)</option>
+            <option value="can">Can</option>
+            <option value="pack">Pack</option>
+        </select>
+        
+        <label><i class="fa-solid fa-dollar-sign"></i> Rate ($) *</label>
+        <input type="number" id="rate" placeholder="0.00" step="0.01">
+        
+        <label><i class="fa-solid fa-exclamation-triangle"></i> Minimum Stock Alert</label>
+        <input type="number" id="modalMinStock" placeholder="Minimum stock level" value="10">
+        
+        <label><i class="fa-solid fa-boxes"></i> Initial Stock Quantity</label>
+        <input type="number" id="modalStock" placeholder="Starting stock" value="0">
+        
+        <button class="btn green" id="saveProductBtn">Save Product</button>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
